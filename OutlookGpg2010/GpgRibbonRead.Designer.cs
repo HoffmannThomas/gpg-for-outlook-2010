@@ -1,13 +1,13 @@
 ﻿namespace OutlookGpg2010
 {
-    partial class GpgRibbonCompose : Microsoft.Office.Tools.Ribbon.OfficeRibbon
+    partial class GpgRibbonRead : Microsoft.Office.Tools.Ribbon.OfficeRibbon
     {
         /// <summary>
         /// Erforderliche Designervariable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public GpgRibbonCompose()
+        public GpgRibbonRead()
         {
             InitializeComponent();
         }
@@ -35,9 +35,8 @@
         {
             this.gpgTab = new Microsoft.Office.Tools.Ribbon.RibbonTab();
             this.gpg2010Group = new Microsoft.Office.Tools.Ribbon.RibbonGroup();
-            this.signMailCheck = new Microsoft.Office.Tools.Ribbon.RibbonCheckBox();
-            this.encryptMailCheck = new Microsoft.Office.Tools.Ribbon.RibbonCheckBox();
-            this.settingsButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.verifyImage = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.decryptImage = new Microsoft.Office.Tools.Ribbon.RibbonButton();
             this.gpgTab.SuspendLayout();
             this.gpg2010Group.SuspendLayout();
             this.SuspendLayout();
@@ -51,36 +50,33 @@
             // 
             // gpg2010Group
             // 
-            this.gpg2010Group.Items.Add(this.signMailCheck);
-            this.gpg2010Group.Items.Add(this.encryptMailCheck);
-            this.gpg2010Group.Items.Add(this.settingsButton);
+            this.gpg2010Group.Items.Add(this.verifyImage);
+            this.gpg2010Group.Items.Add(this.decryptImage);
             this.gpg2010Group.Label = "GPG 2010";
             this.gpg2010Group.Name = "gpg2010Group";
             // 
-            // signMailCheck
+            // verifyImage
             // 
-            this.signMailCheck.Label = "Sign Mail";
-            this.signMailCheck.Name = "signMailCheck";
-            this.signMailCheck.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.signMailCheck_Click);
+            this.verifyImage.Image = global::OutlookGpg2010.Properties.Resources.neutral;
+            this.verifyImage.Label = "No signature";
+            this.verifyImage.Name = "verifyImage";
+            this.verifyImage.ShowImage = true;
+            this.verifyImage.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.verifyImage_Click);
             // 
-            // encryptMailCheck
+            // decryptImage
             // 
-            this.encryptMailCheck.Label = "Encrypt Mail";
-            this.encryptMailCheck.Name = "encryptMailCheck";
-            this.encryptMailCheck.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.encryptMailCheck_Click);
+            this.decryptImage.Image = global::OutlookGpg2010.Properties.Resources.neutral;
+            this.decryptImage.Label = "No encryption";
+            this.decryptImage.Name = "decryptImage";
+            this.decryptImage.ShowImage = true;
+            this.decryptImage.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.decryptImage_Click);
             // 
-            // settingsButton
+            // GpgRibbonRead
             // 
-            this.settingsButton.Label = "Settings";
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.settingsButton_Click);
-            // 
-            // GpgRibbonCompose
-            // 
-            this.Name = "GpgRibbonCompose";
-            this.RibbonType = "Microsoft.Outlook.Mail.Compose";
+            this.Name = "GpgRibbonRead";
+            this.RibbonType = "Microsoft.Outlook.Mail.Read";
             this.Tabs.Add(this.gpgTab);
-            this.Load += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonUIEventArgs>(this.GpgRibbon_Load);
+            this.Load += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonUIEventArgs>(this.GpgRibbonRead_Load);
             this.gpgTab.ResumeLayout(false);
             this.gpgTab.PerformLayout();
             this.gpg2010Group.ResumeLayout(false);
@@ -93,16 +89,15 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab gpgTab;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup gpg2010Group;
-        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox signMailCheck;
-        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox encryptMailCheck;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton settingsButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton verifyImage;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton decryptImage;
     }
 
     partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonReadOnlyCollection
     {
-        internal GpgRibbonCompose GpgRibbon
+        internal GpgRibbonRead GpgRibbonRead
         {
-            get { return this.GetRibbon<GpgRibbonCompose>(); }
+            get { return this.GetRibbon<GpgRibbonRead>(); }
         }
     }
 }
