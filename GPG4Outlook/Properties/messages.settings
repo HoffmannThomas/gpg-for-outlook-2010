@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GPG4OutlookLib.Properties" GeneratedClassName="messages">
+  <Profiles />
+  <Settings>
+    <Setting Name="pathError" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Please provide a valid gpg.exe path.</Value>
+    </Setting>
+    <Setting Name="recipientError" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Recipient is required before encrypting data.</Value>
+    </Setting>
+    <Setting Name="pathExeError" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Unable to find gpg.exe. Please verify the installation path and executable.</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

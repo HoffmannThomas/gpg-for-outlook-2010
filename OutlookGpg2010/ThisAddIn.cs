@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using Office = Microsoft.Office.Core;
-using Microsoft.Office.Interop.Outlook;
-
-namespace OutlookGpg2010
+﻿namespace OutlookGpg2010
 {
     public partial class ThisAddIn
     {

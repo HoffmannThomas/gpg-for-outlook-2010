@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OutlookGpg2010.Properties
-{
+namespace GPG4OutlookLib.Properties {
     using System;
     
     
@@ -40,7 +39,7 @@ namespace OutlookGpg2010.Properties
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OutlookGpg2010.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GPG4OutlookLib.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,27 +57,6 @@ namespace OutlookGpg2010.Properties
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        internal static System.Drawing.Bitmap error {
-            get {
-                object obj = ResourceManager.GetObject("error", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap neutral {
-            get {
-                object obj = ResourceManager.GetObject("neutral", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap valid {
-            get {
-                object obj = ResourceManager.GetObject("valid", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

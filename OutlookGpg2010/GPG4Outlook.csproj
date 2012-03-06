@@ -26,21 +26,34 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>OutlookGpg2010</RootNamespace>
     <AssemblyName>OutlookGpg2010</AssemblyName>
-    <LoadBehavior>3</LoadBehavior>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <InstallUrl />
+    <TargetCulture>de</TargetCulture>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>days</UpdateIntervalUnits>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <ProductName>GPG4Outlook</ProductName>
+    <PublisherName />
+    <SupportUrl />
+    <FriendlyName>GPG4Outlook</FriendlyName>
+    <OfficeApplicationDescription />
+    <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
-      <Visible>false</Visible>
-      <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 and x64%29</ProductName>
-      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
@@ -178,6 +191,12 @@
     <Compile Include="GpgRibbonRead.Designer.cs">
       <DependentUpon>GpgRibbonRead.cs</DependentUpon>
     </Compile>
+    <Compile Include="PasswordPromt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordPromt.Designer.cs">
+      <DependentUpon>PasswordPromt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -186,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GpgRibbonRead.resx">
       <DependentUpon>GpgRibbonRead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordPromt.resx">
+      <DependentUpon>PasswordPromt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -197,14 +219,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="App.config" />
     <None Include="OutlookGpg2010_TemporaryKey.pfx" />
-    <None Include="Properties\Settings.settings">
+    <None Include="Properties\userSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <LastGenOutput>userSettings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Include="Properties\userSettings.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
+      <DependentUpon>userSettings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
@@ -219,6 +243,12 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GPG4Outlook\GPG4OutlookLib.csproj">
+      <Project>{9E2CE0E0-EFB7-41FD-BF24-1E12AB7DF129}</Project>
+      <Name>GPG4OutlookLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
