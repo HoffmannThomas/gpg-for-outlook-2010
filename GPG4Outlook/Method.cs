@@ -12,27 +12,18 @@ namespace GPG4OutlookLib
         {
 
             this.commandLine = new StringBuilder();
-            this.commandLine.Append("gpg --passphrase-fd 0");
-            this.commandLine.Append("--no-verbose ");
+            this.commandLine.Append("gpg");
         }
 
-        public String execute(String message, String passphrase)
+        public String execute(String message)
         {
             String output = null;
             Process process = new Process();
-            process.StartInfo = CreateStartInfo();
+            process.StartInfo = CreateStartInfo(message);
 
             try
             {                
                 process.Start();
-
-                process.StandardInput.WriteLine(passphrase);
-                process.StandardInput.Flush();
-
-                process.StandardInput.WriteLine(message);
-                process.StandardInput.Flush();
-                process.StandardInput.Close();
-
                 process.StandardOutput.ReadToEnd();
 
                 if (!process.WaitForExit(10000))
@@ -53,7 +44,7 @@ namespace GPG4OutlookLib
             return output;
         }
 
-        private ProcessStartInfo CreateStartInfo()
+        private ProcessStartInfo CreateStartInfo(String message)
         {
             ProcessStartInfo processStartInfo = new ProcessStartInfo();
 
@@ -62,7 +53,7 @@ namespace GPG4OutlookLib
             processStartInfo.RedirectStandardInput = true;
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.RedirectStandardError = true;
-            processStartInfo.Arguments = this.commandLine.ToString();
+            processStartInfo.Arguments = "echo " + message + " | " + this.commandLine.ToString();
             processStartInfo.FileName = "CMD.exe";
 
             return processStartInfo;
