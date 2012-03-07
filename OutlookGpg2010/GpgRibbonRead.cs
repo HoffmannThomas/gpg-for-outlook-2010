@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
-using Microsoft.Office.Interop.Outlook;
-using System.Windows.Forms;
 
 namespace OutlookGpg2010
 {
@@ -20,37 +15,13 @@ namespace OutlookGpg2010
         private void verifyImage_Click(object sender, RibbonControlEventArgs e)
         {
             MailItem mail = (MailItem)inspector.CurrentItem;
-
-            PasswordPromt promt = new PasswordPromt();
-            DialogResult res = promt.ShowDialog();
-
-            if (res == System.Windows.Forms.DialogResult.OK)
-            {
-                mail.Body = (new GPG4OutlookLib.Methods.Verify()).execute(mail.Body, promt.password);
-            }
-            else
-            {
-                throw new GPG4OutlookLib.GPG4OutlookException("No passphrase provided");
-            }
-
+            mail.Body = (new GPG4OutlookLib.Methods.Verify()).execute(mail.Body);
         }
 
         private void decryptImage_Click(object sender, RibbonControlEventArgs e)
         {
             MailItem mail = (MailItem)inspector.CurrentItem;
-
-                        PasswordPromt promt = new PasswordPromt();
-            DialogResult res = promt.ShowDialog();
-
-            if (res == System.Windows.Forms.DialogResult.OK)
-            {
-                mail.Body = (new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body, promt.password);
-            }
-            else
-            {
-                throw new GPG4OutlookLib.GPG4OutlookException("No passphrase provided");
-            }
-
+            mail.Body = (new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body);
         }
     }
 }

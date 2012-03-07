@@ -10,51 +10,44 @@ namespace GPG4OutlookLib
 
         public Method()
         {
-
             this.commandLine = new StringBuilder();
             this.commandLine.Append("gpg");
         }
 
         public String execute(String message)
         {
-            String output = null;
-            Process process = new Process();
-            process.StartInfo = CreateStartInfo(message);
+            String output = "";
+            String error = "";
+            Process process = null;
 
-            try
-            {                
-                process.Start();
-                process.StandardOutput.ReadToEnd();
+            process = Process.Start(StartInfo());
 
-                if (!process.WaitForExit(10000))
-                {
-                    throw new GPG4OutlookException("A time out event occurred while executing the GPG program.");
-                }
+            process.StandardInput.WriteLine(@"Echo on");
+            process.StandardInput.WriteLine(@"echo " + message + " | " + this.commandLine.ToString());
+            process.StandardInput.WriteLine(@"EXIT");
 
-                if (process.ExitCode != 0)
-                {
-                }
+            output = process.StandardOutput.ReadToEnd();
+            error = process.StandardError.ReadToEnd();
 
-            }
-            catch (Exception)
+            if (!process.WaitForExit(10000))
             {
-                throw new GPG4OutlookException(process.StandardError.ReadToEnd());
+                throw new GPG4OutlookException("A time out event occurred while executing the GPG program.");
             }
+
+            if (error.Length > 1) { throw new GPG4OutlookException(error); }
 
             return output;
         }
 
-        private ProcessStartInfo CreateStartInfo(String message)
+        private ProcessStartInfo StartInfo()
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
 
-            processStartInfo.CreateNoWindow = true;
+            processStartInfo.CreateNoWindow = false;
             processStartInfo.UseShellExecute = false;
             processStartInfo.RedirectStandardInput = true;
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.RedirectStandardError = true;
-            processStartInfo.Arguments = "echo " + message + " | " + this.commandLine.ToString();
-            processStartInfo.FileName = "CMD.exe";
 
             return processStartInfo;
         }
