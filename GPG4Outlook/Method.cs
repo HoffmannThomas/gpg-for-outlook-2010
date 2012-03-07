@@ -1,55 +1,79 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace GPG4OutlookLib
 {
     public abstract class Method
     {
         protected StringBuilder commandLine;
+        private Process _process;
+        private string _outputString;
+        private string _errorString;
 
         public Method()
         {
             this.commandLine = new StringBuilder();
-            this.commandLine.Append("gpg");
+            this.commandLine.Append("--no-verbose ");
         }
 
         public String execute(String message)
         {
-            String output = "";
-            String error = "";
-            Process process = null;
+            _process = Process.Start(StartInfo());
 
-            process = Process.Start(StartInfo());
+            ThreadStart outputEntry = new ThreadStart(StandardOutputReader);
+            Thread outputThread = new Thread(outputEntry);
+            outputThread.Start();
+            ThreadStart errorEntry = new ThreadStart(StandardErrorReader);
+            Thread errorThread = new Thread(errorEntry);
+            errorThread.Start();
 
-            process.StandardInput.WriteLine(@"Echo on");
-            process.StandardInput.WriteLine(@"echo " + message + " | " + this.commandLine.ToString());
-            process.StandardInput.WriteLine(@"EXIT");
+            _process.StandardInput.WriteLine(message);
+            _process.StandardInput.Flush();
+            _process.StandardInput.Close();
 
-            output = process.StandardOutput.ReadToEnd();
-            error = process.StandardError.ReadToEnd();
-
-            if (!process.WaitForExit(10000))
+            if (!_process.WaitForExit(10000))
             {
                 throw new GPG4OutlookException("A time out event occurred while executing the GPG program.");
             }
 
-            if (error.Length > 1) { throw new GPG4OutlookException(error); }
+            if (_process.ExitCode != 0) {
+                throw new GPG4OutlookException(_errorString);
+            }
 
-            return output;
+            return _outputString;
         }
 
         private ProcessStartInfo StartInfo()
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
+            ProcessStartInfo processStartInfo = new ProcessStartInfo("gpg.exe", this.commandLine.ToString());
 
-            processStartInfo.CreateNoWindow = false;
+            processStartInfo.CreateNoWindow = true;
             processStartInfo.UseShellExecute = false;
             processStartInfo.RedirectStandardInput = true;
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.RedirectStandardError = true;
 
             return processStartInfo;
+        }
+
+        private void StandardOutputReader()
+        {
+            string output = _process.StandardOutput.ReadToEnd();
+            lock (this)
+            {
+                _outputString = output;
+            }
+        }
+
+        private void StandardErrorReader()
+        {
+            string error = _process.StandardError.ReadToEnd();
+            lock (this)
+            {
+                _errorString = error;
+            }
         }
 
     }
