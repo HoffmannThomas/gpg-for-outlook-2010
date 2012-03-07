@@ -26,9 +26,11 @@ namespace OutlookGpg2010
                 {
                     try
                     {
-                        if (this.signMailCheck.Checked && !this.encryptMailCheck.Checked) { mail.Body = (new GPG4OutlookLib.Methods.Sign(mail.Sender.Address)).execute(mail.Body); }
-                        if (!this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = (new GPG4OutlookLib.Methods.Encrypt(mail.Recipients)).execute(mail.Body); }
-                        if (this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = (new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, mail.Sender.Address)).execute(mail.Body); }
+                        string myEmailAddress = Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+
+                        if (this.signMailCheck.Checked && !this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.Sign(myEmailAddress)).execute(mail.Body)).message; }
+                        if (!this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients)).execute(mail.Body)).message; }
+                        if (this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients,myEmailAddress)).execute(mail.Body)).message; }
                     }
                     catch (System.Exception ex)
                     {

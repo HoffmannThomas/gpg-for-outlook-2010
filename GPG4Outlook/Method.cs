@@ -18,7 +18,7 @@ namespace GPG4OutlookLib
             this.commandLine.Append("--no-verbose ");
         }
 
-        public String execute(String message)
+        public MessageContainer execute(String message)
         {
             _process = Process.Start(StartInfo());
 
@@ -42,7 +42,7 @@ namespace GPG4OutlookLib
                 throw new GPG4OutlookException(_errorString);
             }
 
-            return _outputString;
+            return new MessageContainer(_outputString, _errorString);
         }
 
         private ProcessStartInfo StartInfo()

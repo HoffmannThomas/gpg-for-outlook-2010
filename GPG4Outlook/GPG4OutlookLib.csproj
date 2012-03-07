@@ -43,12 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GPG4OutlookException.cs" />
+    <Compile Include="MessageContainer.cs" />
     <Compile Include="Methods\Decrypt.cs" />
     <Compile Include="Methods\Encrypt.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="Methods\Sign.cs" />
     <Compile Include="Methods\SignAndEncrypt.cs" />
-    <Compile Include="Methods\Verify.cs" />
     <Compile Include="Properties\messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

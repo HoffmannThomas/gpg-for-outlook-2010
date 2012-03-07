@@ -35,8 +35,8 @@
         {
             this.gpgTab = new Microsoft.Office.Tools.Ribbon.RibbonTab();
             this.gpg2010Group = new Microsoft.Office.Tools.Ribbon.RibbonGroup();
-            this.verifyImage = new Microsoft.Office.Tools.Ribbon.RibbonButton();
-            this.decryptImage = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.decryptButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.verifyButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
             this.gpgTab.SuspendLayout();
             this.gpg2010Group.SuspendLayout();
             this.SuspendLayout();
@@ -50,26 +50,26 @@
             // 
             // gpg2010Group
             // 
-            this.gpg2010Group.Items.Add(this.verifyImage);
-            this.gpg2010Group.Items.Add(this.decryptImage);
+            this.gpg2010Group.Items.Add(this.verifyButton);
+            this.gpg2010Group.Items.Add(this.decryptButton);
             this.gpg2010Group.Label = "GPG 2010";
             this.gpg2010Group.Name = "gpg2010Group";
             // 
-            // verifyImage
+            // decryptButton
             // 
-            this.verifyImage.Image = global::OutlookGpg2010.Properties.Resources.neutral;
-            this.verifyImage.Label = "No signature";
-            this.verifyImage.Name = "verifyImage";
-            this.verifyImage.ShowImage = true;
-            this.verifyImage.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.verifyImage_Click);
+            this.decryptButton.Image = global::OutlookGpg2010.Properties.Resources.valid;
+            this.decryptButton.Label = "Decrypt";
+            this.decryptButton.Name = "decryptButton";
+            this.decryptButton.ShowImage = true;
+            this.decryptButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.decryptImage_Click);
             // 
-            // decryptImage
+            // verifyButton
             // 
-            this.decryptImage.Image = global::OutlookGpg2010.Properties.Resources.neutral;
-            this.decryptImage.Label = "No encryption";
-            this.decryptImage.Name = "decryptImage";
-            this.decryptImage.ShowImage = true;
-            this.decryptImage.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.decryptImage_Click);
+            this.verifyButton.Image = global::OutlookGpg2010.Properties.Resources.valid;
+            this.verifyButton.Label = "Verify";
+            this.verifyButton.Name = "verifyButton";
+            this.verifyButton.ShowImage = true;
+            this.verifyButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.verifyImage_Click);
             // 
             // GpgRibbonRead
             // 
@@ -89,8 +89,8 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab gpgTab;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup gpg2010Group;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton verifyImage;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton decryptImage;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton decryptButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton verifyButton;
     }
 
     partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonReadOnlyCollection

@@ -18,7 +18,7 @@ namespace OutlookGpg2010
             try
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
-                mail.Body = (new GPG4OutlookLib.Methods.Verify()).execute(mail.Body);
+                MessageBox.Show(((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body)).information);
             }
             catch (System.Exception ex)
             {
@@ -31,7 +31,7 @@ namespace OutlookGpg2010
             try
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
-                mail.Body = (new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body);
+                mail.Body = ((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body)).message;
             }
             catch (System.Exception ex)
             {
