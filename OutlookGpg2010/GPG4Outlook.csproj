@@ -179,25 +179,31 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="GpgRibbonCompose.cs">
+    <Compile Include="Ribbons\GpgRibbonCompose.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GpgRibbonCompose.Designer.cs">
+    <Compile Include="Ribbons\GpgRibbonCompose.Designer.cs">
       <DependentUpon>GpgRibbonCompose.cs</DependentUpon>
     </Compile>
-    <Compile Include="GpgRibbonRead.cs">
+    <Compile Include="Ribbons\GpgRibbonRead.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GpgRibbonRead.Designer.cs">
+    <Compile Include="Ribbons\GpgRibbonRead.Designer.cs">
       <DependentUpon>GpgRibbonRead.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="GpgRibbonCompose.resx">
+    <Compile Include="Tools\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Ribbons\GpgRibbonCompose.resx">
       <DependentUpon>GpgRibbonCompose.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GpgRibbonRead.resx">
+    <EmbeddedResource Include="Ribbons\GpgRibbonRead.resx">
       <DependentUpon>GpgRibbonRead.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -210,6 +216,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Tools\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="OutlookGpg2010_TemporaryKey.pfx" />
     <None Include="Properties\userSettings.settings">
@@ -241,6 +250,7 @@
       <Name>GPG4OutlookLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Include additional build rules for an Office application add-in. -->

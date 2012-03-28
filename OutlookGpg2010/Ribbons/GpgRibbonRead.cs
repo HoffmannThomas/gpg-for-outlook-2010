@@ -11,9 +11,22 @@ namespace OutlookGpg2010
         private void GpgRibbonRead_Load(object sender, RibbonUIEventArgs e)
         {
             inspector = Globals.ThisAddIn.Application.ActiveInspector();
+
+            if (Properties.userSettings.Default.AlwaysDecrypt.Equals(true)) { decryptMailItem(); }
+
         }
 
         private void verifyImage_Click(object sender, RibbonControlEventArgs e)
+        {
+            verifyMailItem();
+        }
+
+        private void decryptImage_Click(object sender, RibbonControlEventArgs e)
+        {
+            decryptMailItem();
+        }
+
+        private void verifyMailItem()
         {
             try
             {
@@ -26,17 +39,22 @@ namespace OutlookGpg2010
             }
         }
 
-        private void decryptImage_Click(object sender, RibbonControlEventArgs e)
+        private void decryptMailItem()
         {
             try
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
-                mail.Body = ((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body)).message;
+                MessageBox.Show((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body).message);
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void settingsButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            new Tools.SettingsForm().Show();
         }
     }
 }

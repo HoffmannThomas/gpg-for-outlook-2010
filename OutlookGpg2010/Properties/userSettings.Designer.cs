@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OutlookGpg2010.Properties
-{
+namespace OutlookGpg2010.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -45,18 +44,6 @@ namespace OutlookGpg2010.Properties
             }
             set {
                 this["AlwaysEncrypt"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AlwaysVerify {
-            get {
-                return ((bool)(this["AlwaysVerify"]));
-            }
-            set {
-                this["AlwaysVerify"] = value;
             }
         }
         

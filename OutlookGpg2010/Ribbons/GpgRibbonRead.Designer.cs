@@ -35,8 +35,9 @@
         {
             this.gpgTab = new Microsoft.Office.Tools.Ribbon.RibbonTab();
             this.gpg2010Group = new Microsoft.Office.Tools.Ribbon.RibbonGroup();
-            this.decryptButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
             this.verifyButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.decryptButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.settingsButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
             this.gpgTab.SuspendLayout();
             this.gpg2010Group.SuspendLayout();
             this.SuspendLayout();
@@ -52,8 +53,17 @@
             // 
             this.gpg2010Group.Items.Add(this.verifyButton);
             this.gpg2010Group.Items.Add(this.decryptButton);
+            this.gpg2010Group.Items.Add(this.settingsButton);
             this.gpg2010Group.Label = "GPG 2010";
             this.gpg2010Group.Name = "gpg2010Group";
+            // 
+            // verifyButton
+            // 
+            this.verifyButton.Image = global::OutlookGpg2010.Properties.Resources.valid;
+            this.verifyButton.Label = "Verify";
+            this.verifyButton.Name = "verifyButton";
+            this.verifyButton.ShowImage = true;
+            this.verifyButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.verifyImage_Click);
             // 
             // decryptButton
             // 
@@ -63,13 +73,11 @@
             this.decryptButton.ShowImage = true;
             this.decryptButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.decryptImage_Click);
             // 
-            // verifyButton
+            // settingsButton
             // 
-            this.verifyButton.Image = global::OutlookGpg2010.Properties.Resources.valid;
-            this.verifyButton.Label = "Verify";
-            this.verifyButton.Name = "verifyButton";
-            this.verifyButton.ShowImage = true;
-            this.verifyButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.verifyImage_Click);
+            this.settingsButton.Label = "Settings";
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.settingsButton_Click);
             // 
             // GpgRibbonRead
             // 
@@ -91,6 +99,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup gpg2010Group;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton decryptButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton verifyButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton settingsButton;
     }
 
     partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonReadOnlyCollection

@@ -48,12 +48,15 @@ namespace OutlookGpg2010
 
         private void encryptMailCheck_Click(object sender, RibbonControlEventArgs e)
         {
+           Inspector inspector = Globals.ThisAddIn.Application.ActiveInspector();
 
+           MailItem mail = (MailItem)inspector.CurrentItem;
+           mail.BodyFormat = OlBodyFormat.olFormatPlain;
         }
 
         private void settingsButton_Click(object sender, RibbonControlEventArgs e)
         {
-
+            new Tools.SettingsForm().Show();
         }
     }
 }
