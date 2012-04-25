@@ -43,7 +43,8 @@ namespace GPG4OutlookLib.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Unable to find gpg.exe. Please verify the installation path and executable.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Unable to find gpg.exe. Please verify the GPG4Win installation and windows path s" +
+            "ettings.")]
         public string pathExeError {
             get {
                 return ((string)(this["pathExeError"]));

@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Recipient is required before encrypting data.</Value>
     </Setting>
     <Setting Name="pathExeError" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Unable to find gpg.exe. Please verify the installation path and executable.</Value>
+      <Value Profile="(Default)">Unable to find gpg.exe. Please verify the GPG4Win installation and windows path settings.</Value>
     </Setting>
     <Setting Name="timeOutError" Type="System.String" Scope="User">
       <Value Profile="(Default)">A time out event occurred while executing the GPG program.	</Value>
