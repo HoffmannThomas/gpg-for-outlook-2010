@@ -32,7 +32,7 @@
     <PublishUrl>C:\GPG4Outlook\</PublishUrl>
     <InstallUrl />
     <TargetCulture>de</TargetCulture>
-    <ApplicationVersion>0.2.0.0</ApplicationVersion>
+    <ApplicationVersion>0.3.0.0</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
