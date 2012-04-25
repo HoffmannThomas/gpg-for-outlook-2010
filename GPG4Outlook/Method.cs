@@ -35,7 +35,7 @@ namespace GPG4OutlookLib
 
             if (!_process.WaitForExit(10000))
             {
-                throw new GPG4OutlookException("A time out event occurred while executing the GPG program.");
+                throw new GPG4OutlookException(Properties.messages.Default.timeOutError);
             }
 
             if (_process.ExitCode != 0) {

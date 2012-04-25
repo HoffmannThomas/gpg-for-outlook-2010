@@ -32,27 +32,33 @@ namespace GPG4OutlookLib.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Recipient is required before encrypting data.")]
         public string recipientError {
             get {
                 return ((string)(this["recipientError"]));
             }
-            set {
-                this["recipientError"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Unable to find gpg.exe. Please verify the installation path and executable.")]
         public string pathExeError {
             get {
                 return ((string)(this["pathExeError"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("A time out event occurred while executing the GPG program.\t")]
+        public string timeOutError {
+            get {
+                return ((string)(this["timeOutError"]));
+            }
             set {
-                this["pathExeError"] = value;
+                this["timeOutError"] = value;
             }
         }
     }

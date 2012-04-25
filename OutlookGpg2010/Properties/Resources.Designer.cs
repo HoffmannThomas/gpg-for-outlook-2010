@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OutlookGpg2010.Properties
-{
+namespace OutlookGpg2010.Properties {
     using System;
     
     

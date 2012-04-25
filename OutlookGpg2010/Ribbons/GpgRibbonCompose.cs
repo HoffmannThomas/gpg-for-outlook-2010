@@ -18,29 +18,30 @@ namespace OutlookGpg2010
 
         private void Application_ItemSend(object Item, ref bool Cancel)
         {
-
             if (!(!this.signMailCheck.Checked && !this.encryptMailCheck.Checked))
             {
-
                 MailItem mail = Item as MailItem;
 
                 if (mail != null)
                 {
                     try
                     {
-                        string myEmailAddress = Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
-
-                        if (this.signMailCheck.Checked && !this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.Sign(myEmailAddress)).execute(mail.Body)).message; }
+                        if (this.signMailCheck.Checked && !this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.Sign(getMyEmailAddress())).execute(mail.Body)).message; }
                         if (!this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients)).execute(mail.Body)).message; }
-                        if (this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, myEmailAddress)).execute(mail.Body)).message; }
+                        if (this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.Body)).message; }
                     }
                     catch (System.Exception ex)
                     {
                         string err = ex.Message;
+                        Cancel = true;
                     }
                 }
             }
 
+        }
+
+        private String getMyEmailAddress() {
+            return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
         }
 
         private void signMailCheck_Click(object sender, RibbonControlEventArgs e)

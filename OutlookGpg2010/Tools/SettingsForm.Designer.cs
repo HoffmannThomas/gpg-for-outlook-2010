@@ -115,7 +115,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
-            this.cancelButton.Text = "cancel";
+            this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -134,8 +134,10 @@
             this.Controls.Add(this.AlwaysDecryptBox);
             this.Controls.Add(this.AlwaysEncryptBox);
             this.Controls.Add(this.AlwaysSignBox);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SettingsForm";
-            this.Text = "SettingsForm";
+            this.Text = "Personal Settings";
             this.ResumeLayout(false);
             this.PerformLayout();
 
