@@ -66,7 +66,17 @@ namespace OutlookGpg2010
                     {
                         if (encrypt && !sign) { mail.Body = ((new GPG4OutlookLib.Methods.Sign(getMyEmailAddress())).execute(mail.Body)).message; }
                         if (!encrypt && sign) { mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients)).execute(mail.Body)).message; }
-                        if (encrypt && sign) { mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.Body)).message; }
+                        if (encrypt && sign) {
+
+                            if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
+                            {
+                                mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.Body)).message;
+                            }
+                            else
+                            {
+                                mail.HTMLBody = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.HTMLBody)).message;
+                            }
+                        }
                     }
                     catch (System.Exception ex)
                     {
