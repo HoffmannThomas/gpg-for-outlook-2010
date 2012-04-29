@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
 
@@ -66,17 +67,33 @@ namespace OutlookGpg2010
                     {
                         mail.HTMLBody = (new GPG4OutlookLib.Methods.Decrypt()).execute(mail.HTMLBody).message;
                     }
+
+                    decryptAttachments(mail);
                 }
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Ein Fehler ist augetreten:");
             }
         }
 
         private void settingsButton_Click(object sender, RibbonControlEventArgs e)
         {
             new Tools.SettingsForm().Show();
+        }
+
+        private static void decryptAttachments(MailItem mail)
+        {
+            const String PR_ATTACH_DATA_BIN = "http://schemas.microsoft.com/mapi/proptag/0x37010102";
+
+            foreach (Attachment attachment in mail.Attachments)
+            {
+                Object attachmentData = attachment.PropertyAccessor.GetProperty(PR_ATTACH_DATA_BIN);
+
+                Byte[] data = new GPG4OutlookLib.Methods.Decrypt().execute((Byte[])attachmentData);
+
+                attachment.PropertyAccessor.SetProperty(PR_ATTACH_DATA_BIN, data);
+            }
         }
     }
 }

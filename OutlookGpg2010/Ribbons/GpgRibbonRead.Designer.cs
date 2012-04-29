@@ -1,6 +1,6 @@
 ﻿namespace OutlookGpg2010
 {
-    partial class GpgRibbonRead : Microsoft.Office.Tools.Ribbon.OfficeRibbon
+    partial class GpgRibbonRead : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -8,6 +8,7 @@
         private System.ComponentModel.IContainer components = null;
 
         public GpgRibbonRead()
+            : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
         }
@@ -33,11 +34,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gpgTab = new Microsoft.Office.Tools.Ribbon.RibbonTab();
-            this.gpg2010Group = new Microsoft.Office.Tools.Ribbon.RibbonGroup();
-            this.verifyButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
-            this.decryptButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
-            this.settingsButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.gpgTab = Factory.CreateRibbonTab();
+            this.gpg2010Group = Factory.CreateRibbonGroup();
+            this.verifyButton = Factory.CreateRibbonButton();
+            this.decryptButton = Factory.CreateRibbonButton();
+            this.settingsButton = Factory.CreateRibbonButton();
             this.gpgTab.SuspendLayout();
             this.gpg2010Group.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +64,7 @@
             this.verifyButton.Label = "Verify";
             this.verifyButton.Name = "verifyButton";
             this.verifyButton.ShowImage = true;
-            this.verifyButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.verifyImage_Click);
+            this.verifyButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.verifyImage_Click);
             // 
             // decryptButton
             // 
@@ -71,20 +72,20 @@
             this.decryptButton.Label = "Decrypt";
             this.decryptButton.Name = "decryptButton";
             this.decryptButton.ShowImage = true;
-            this.decryptButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.decryptImage_Click);
+            this.decryptButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.decryptImage_Click);
             // 
             // settingsButton
             // 
             this.settingsButton.Label = "Settings";
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.settingsButton_Click);
+            this.settingsButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.settingsButton_Click);
             // 
             // GpgRibbonRead
             // 
             this.Name = "GpgRibbonRead";
             this.RibbonType = "Microsoft.Outlook.Mail.Read";
             this.Tabs.Add(this.gpgTab);
-            this.Load += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonUIEventArgs>(this.GpgRibbonRead_Load);
+            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.GpgRibbonRead_Load);
             this.gpgTab.ResumeLayout(false);
             this.gpgTab.PerformLayout();
             this.gpg2010Group.ResumeLayout(false);
@@ -102,7 +103,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton settingsButton;
     }
 
-    partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonReadOnlyCollection
+    partial class ThisRibbonCollection
     {
         internal GpgRibbonRead GpgRibbonRead
         {

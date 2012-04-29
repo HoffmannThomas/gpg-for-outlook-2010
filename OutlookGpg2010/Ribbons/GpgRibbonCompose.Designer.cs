@@ -1,6 +1,6 @@
 ﻿namespace OutlookGpg2010
 {
-    partial class GpgRibbonCompose : Microsoft.Office.Tools.Ribbon.OfficeRibbon
+    partial class GpgRibbonCompose : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -8,6 +8,7 @@
         private System.ComponentModel.IContainer components = null;
 
         public GpgRibbonCompose()
+            : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
         }
@@ -33,11 +34,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gpgTab = new Microsoft.Office.Tools.Ribbon.RibbonTab();
-            this.gpg2010Group = new Microsoft.Office.Tools.Ribbon.RibbonGroup();
-            this.signMailCheck = new Microsoft.Office.Tools.Ribbon.RibbonCheckBox();
-            this.encryptMailCheck = new Microsoft.Office.Tools.Ribbon.RibbonCheckBox();
-            this.settingsButton = new Microsoft.Office.Tools.Ribbon.RibbonButton();
+            this.gpgTab = Factory.CreateRibbonTab();
+            this.gpg2010Group = Factory.CreateRibbonGroup();
+            this.signMailCheck = Factory.CreateRibbonCheckBox();
+            this.encryptMailCheck = Factory.CreateRibbonCheckBox();
+            this.settingsButton = Factory.CreateRibbonButton();
             this.gpgTab.SuspendLayout();
             this.gpg2010Group.SuspendLayout();
             this.SuspendLayout();
@@ -61,26 +62,26 @@
             // 
             this.signMailCheck.Label = "Sign Mail";
             this.signMailCheck.Name = "signMailCheck";
-            this.signMailCheck.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.signMailCheck_Click);
+            this.signMailCheck.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signMailCheck_Click);
             // 
             // encryptMailCheck
             // 
             this.encryptMailCheck.Label = "Encrypt Mail";
             this.encryptMailCheck.Name = "encryptMailCheck";
-            this.encryptMailCheck.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.encryptMailCheck_Click);
+            this.encryptMailCheck.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.encryptMailCheck_Click);
             // 
             // settingsButton
             // 
             this.settingsButton.Label = "Settings";
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Click += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs>(this.settingsButton_Click);
+            this.settingsButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.settingsButton_Click);
             // 
             // GpgRibbonCompose
             // 
             this.Name = "GpgRibbonCompose";
             this.RibbonType = "Microsoft.Outlook.Mail.Compose";
             this.Tabs.Add(this.gpgTab);
-            this.Load += new System.EventHandler<Microsoft.Office.Tools.Ribbon.RibbonUIEventArgs>(this.GpgRibbon_Load);
+            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.GpgRibbon_Load);
             this.gpgTab.ResumeLayout(false);
             this.gpgTab.PerformLayout();
             this.gpg2010Group.ResumeLayout(false);
@@ -98,7 +99,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton settingsButton;
     }
 
-    partial class ThisRibbonCollection : Microsoft.Office.Tools.Ribbon.RibbonReadOnlyCollection
+    partial class ThisRibbonCollection
     {
         internal GpgRibbonCompose GpgRibbon
         {

@@ -6,7 +6,7 @@ namespace GPG4OutlookLib.Methods
 {
     public class SignAndEncrypt : Encrypt
     {
-        public SignAndEncrypt(Recipients recipients, String sender) : base(recipients)
+        public SignAndEncrypt(Recipients recipients, String sender, Boolean armor) : base(recipients, armor)
         {
             this.commandLine.Append(" --sign -u ");
             this.commandLine.AppendFormat(sender);

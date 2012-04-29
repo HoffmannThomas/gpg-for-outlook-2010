@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.IO;
 
 namespace GPG4OutlookLib
 {
@@ -9,8 +10,8 @@ namespace GPG4OutlookLib
     {
         protected StringBuilder commandLine;
         private Process gpgProcess;
-        private string _outputString; // locked by output reader thread
-        private string _errorString; //locked by error reader thread
+        private Stream _outputStream; // locked by output reader thread
+        private String _errorString; //locked by error reader thread
 
         public Method()
         {
@@ -33,7 +34,30 @@ namespace GPG4OutlookLib
 
             if (this.gpgProcess.ExitCode != 0) { throw new GPG4OutlookException(this._errorString); }
 
-            return new MessageContainer(this._outputString, this._errorString);
+            return new MessageContainer(new StreamReader(this._outputStream).ReadToEnd(), this._errorString);
+        }
+
+        public Byte[] execute(Byte[] bytes)
+        {
+            MemoryStream stream = new MemoryStream(bytes);
+
+            this.gpgProcess = Process.Start(gpgProcessInformation());
+
+            this.startOutputReader();
+            this.startErrorReader();
+
+            stream.CopyTo(this.gpgProcess.StandardInput.BaseStream);
+
+            this.gpgProcess.StandardInput.BaseStream.Flush();
+            this.gpgProcess.StandardInput.BaseStream.Close();
+            this.gpgProcess.StandardInput.Flush();
+            this.gpgProcess.StandardInput.Close();
+
+            if (!this.gpgProcess.WaitForExit(10000)) { throw new GPG4OutlookException(Properties.messages.Default.timeOutError); }
+
+            if (this.gpgProcess.ExitCode != 0) { throw new GPG4OutlookException(this._errorString); }
+
+            return (new BinaryReader(this._outputStream)).ReadBytes((int)this._outputStream.Length);
         }
 
         private ProcessStartInfo gpgProcessInformation()
@@ -64,8 +88,19 @@ namespace GPG4OutlookLib
 
         private void StandardOutputReader()
         {
-            string output = this.gpgProcess.StandardOutput.ReadToEnd();
-            lock (this) { this._outputString = output; }
+            lock (this) { this._outputStream = this.gpgProcess.StandardOutput.BaseStream; }
+        }
+
+        public static void CopyStream(Stream src, Stream dest)
+        {
+            int bufferSize = 2048;
+            byte[] buffer = new byte[bufferSize];
+
+            int bytesRead = 0;
+            while ((bytesRead = src.Read(buffer, 0, bufferSize)) > 0)
+            {
+                dest.Write(buffer, 0, bytesRead);
+            }
         }
 
         private void StandardErrorReader()

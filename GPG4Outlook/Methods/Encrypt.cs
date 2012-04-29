@@ -6,13 +6,13 @@ namespace GPG4OutlookLib.Methods
 {
     public class Encrypt : Method
     {
-        public Encrypt(Recipients recipients)
+        public Encrypt(Recipients recipients, Boolean armor)
             : base()
         {
             if (recipients == null || recipients.Count == 0) { throw new GPG4OutlookException(Properties.messages.Default.recipientError); }
 
             this.commandLine.Append(" --encrypt");
-            this.commandLine.Append(" --armor");
+            if (armor){ this.commandLine.Append(" --armor"); }
             this.commandLine.Append(" --always-trust");
 
             foreach (Recipient recipient in recipients)

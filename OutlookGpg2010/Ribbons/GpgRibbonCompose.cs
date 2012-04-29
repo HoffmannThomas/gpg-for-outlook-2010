@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
 
@@ -12,22 +13,19 @@ namespace OutlookGpg2010
         private void GpgRibbon_Load(object sender, RibbonUIEventArgs e)
         {
             this.updateCheckBoxes();
-            this.setVariables();
-            this.checkMailFormat();
         }
 
-        private void updateCheckBoxes() {
+        private void updateCheckBoxes()
+        {
             this.signMailCheck.Checked = Properties.userSettings.Default.AlwaysSign;
             this.encryptMailCheck.Checked = Properties.userSettings.Default.AlwaysEncrypt;
+            this.setVariables();
         }
 
-        private void setVariables() {
+        private void setVariables()
+        {
             encrypt = this.encryptMailCheck.Checked;
             sign = this.signMailCheck.Checked;
-        }
-
-        private void checkMailFormat() {
-            if (encrypt) { this.setMailBodyFormatPlain(); }
         }
 
         private void signMailCheck_Click(object sender, RibbonControlEventArgs e)
@@ -37,21 +35,12 @@ namespace OutlookGpg2010
 
         private void encryptMailCheck_Click(object sender, RibbonControlEventArgs e)
         {
-            this.setMailBodyFormatPlain();
             this.setVariables();
         }
 
         private void settingsButton_Click(object sender, RibbonControlEventArgs e)
         {
             new Tools.SettingsForm().Show();
-        }
-
-        private void setMailBodyFormatPlain()
-        {
-            Inspector inspector = Globals.ThisAddIn.Application.ActiveInspector();
-
-            MailItem mail = (MailItem)inspector.CurrentItem;
-            mail.BodyFormat = OlBodyFormat.olFormatPlain;
         }
 
         internal static void ItemSend(object Item, bool Cancel)
@@ -64,23 +53,33 @@ namespace OutlookGpg2010
                 {
                     try
                     {
-                        if (encrypt && !sign) { mail.Body = ((new GPG4OutlookLib.Methods.Sign(getMyEmailAddress())).execute(mail.Body)).message; }
-                        if (!encrypt && sign) { mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients)).execute(mail.Body)).message; }
-                        if (encrypt && sign) {
+                        if (!encrypt && sign)
+                        {
+                            mail.Body = ((new GPG4OutlookLib.Methods.Sign(getMyEmailAddress())).execute(mail.Body)).message;
+                        }
+                        if (encrypt && !sign)
+                        {
+                            mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients, true)).execute(mail.Body)).message;
+                            encryptAttachments(mail);
+                        }
+                        if (encrypt && sign)
+                        {
 
                             if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
                             {
-                                mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.Body)).message;
+                                mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress(), true)).execute(mail.Body)).message;
                             }
                             else
                             {
-                                mail.HTMLBody = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.HTMLBody)).message;
+                                mail.HTMLBody = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress(), true)).execute(mail.HTMLBody)).message;
                             }
+
+                            encryptAttachments(mail);
                         }
                     }
                     catch (System.Exception ex)
                     {
-                        string err = ex.Message;
+                        MessageBox.Show(ex.Message, "Ein Fehler ist augetreten:");
                         Cancel = true;
                     }
                 }
@@ -90,6 +89,20 @@ namespace OutlookGpg2010
         private static String getMyEmailAddress()
         {
             return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+        }
+
+        private static void encryptAttachments(MailItem mail)
+        {
+            const String PR_ATTACH_DATA_BIN = "http://schemas.microsoft.com/mapi/proptag/0x37010102";
+
+            foreach (Attachment attachment in mail.Attachments)
+            {
+                Object attachmentData = attachment.PropertyAccessor.GetProperty(PR_ATTACH_DATA_BIN);
+
+                Byte[] data = new GPG4OutlookLib.Methods.Encrypt(mail.Recipients, false).execute((Byte[])attachmentData);
+
+                attachment.PropertyAccessor.SetProperty(PR_ATTACH_DATA_BIN, data);
+            }
         }
     }
 }
