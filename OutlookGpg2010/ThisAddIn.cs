@@ -1,9 +1,16 @@
-﻿namespace OutlookGpg2010
+﻿using Microsoft.Office.Interop.Outlook;
+namespace OutlookGpg2010
 {
     public partial class ThisAddIn
     {
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            Application.ItemSend += new ApplicationEvents_11_ItemSendEventHandler(Application_ItemSend);
+        }
+
+        private void Application_ItemSend(object Item, ref bool Cancel)
+        {
+            GpgRibbonCompose.ItemSend(Item, Cancel);
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

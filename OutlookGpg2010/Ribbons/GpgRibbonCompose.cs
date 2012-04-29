@@ -6,51 +6,39 @@ namespace OutlookGpg2010
 {
     public partial class GpgRibbonCompose
     {
+        private static bool encrypt;
+        private static bool sign;
+
         private void GpgRibbon_Load(object sender, RibbonUIEventArgs e)
         {
-            Globals.ThisAddIn.Application.ItemSend += new ApplicationEvents_11_ItemSendEventHandler(Application_ItemSend);
+            this.updateCheckBoxes();
+            this.setVariables();
+            this.checkMailFormat();
+        }
 
+        private void updateCheckBoxes() {
             this.signMailCheck.Checked = Properties.userSettings.Default.AlwaysSign;
             this.encryptMailCheck.Checked = Properties.userSettings.Default.AlwaysEncrypt;
-
-            if (this.encryptMailCheck.Checked) { this.setMailBodyFormatPlain(); }
         }
 
-        private void Application_ItemSend(object Item, ref bool Cancel)
-        {
-            if (!(!this.signMailCheck.Checked && !this.encryptMailCheck.Checked))
-            {
-                MailItem mail = Item as MailItem;
-
-                if (mail != null)
-                {
-                    try
-                    {
-                        if (this.signMailCheck.Checked && !this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.Sign(getMyEmailAddress())).execute(mail.Body)).message; }
-                        if (!this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients)).execute(mail.Body)).message; }
-                        if (this.signMailCheck.Checked && this.encryptMailCheck.Checked) { mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.Body)).message; }
-                    }
-                    catch (System.Exception ex)
-                    {
-                        string err = ex.Message;
-                        Cancel = true;
-                    }
-                }
-            }
-
+        private void setVariables() {
+            encrypt = this.encryptMailCheck.Checked;
+            sign = this.signMailCheck.Checked;
         }
 
-        private String getMyEmailAddress() {
-            return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+        private void checkMailFormat() {
+            if (encrypt) { this.setMailBodyFormatPlain(); }
         }
 
         private void signMailCheck_Click(object sender, RibbonControlEventArgs e)
         {
+            this.setVariables();
         }
 
         private void encryptMailCheck_Click(object sender, RibbonControlEventArgs e)
         {
             this.setMailBodyFormatPlain();
+            this.setVariables();
         }
 
         private void settingsButton_Click(object sender, RibbonControlEventArgs e)
@@ -64,6 +52,34 @@ namespace OutlookGpg2010
 
             MailItem mail = (MailItem)inspector.CurrentItem;
             mail.BodyFormat = OlBodyFormat.olFormatPlain;
+        }
+
+        internal static void ItemSend(object Item, bool Cancel)
+        {
+            if (!(!encrypt && !sign))
+            {
+                MailItem mail = Item as MailItem;
+
+                if (mail != null)
+                {
+                    try
+                    {
+                        if (encrypt && !sign) { mail.Body = ((new GPG4OutlookLib.Methods.Sign(getMyEmailAddress())).execute(mail.Body)).message; }
+                        if (!encrypt && sign) { mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients)).execute(mail.Body)).message; }
+                        if (encrypt && sign) { mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress())).execute(mail.Body)).message; }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        string err = ex.Message;
+                        Cancel = true;
+                    }
+                }
+            }
+        }
+
+        private static String getMyEmailAddress()
+        {
+            return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
         }
     }
 }
