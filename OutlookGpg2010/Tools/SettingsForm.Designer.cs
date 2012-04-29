@@ -36,6 +36,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ShowPopUpBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // AlwaysSignBox
@@ -100,7 +102,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(53, 157);
+            this.saveButton.Location = new System.Drawing.Point(39, 189);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 6;
@@ -111,7 +113,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(161, 157);
+            this.cancelButton.Location = new System.Drawing.Point(161, 189);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -119,13 +121,35 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 130);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(365, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Check if you want to show the decrypted message only in a pop up window:\r\n";
+            // 
+            // ShowPopUpBox
+            // 
+            this.ShowPopUpBox.AutoSize = true;
+            this.ShowPopUpBox.Location = new System.Drawing.Point(15, 146);
+            this.ShowPopUpBox.Name = "ShowPopUpBox";
+            this.ShowPopUpBox.Size = new System.Drawing.Size(89, 17);
+            this.ShowPopUpBox.TabIndex = 9;
+            this.ShowPopUpBox.Text = "Show PopUp";
+            this.ShowPopUpBox.UseVisualStyleBackColor = true;
+            this.ShowPopUpBox.CheckedChanged += new System.EventHandler(this.ShowPopUpBox_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(322, 194);
+            this.ClientSize = new System.Drawing.Size(401, 251);
+            this.Controls.Add(this.ShowPopUpBox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.label3);
@@ -153,5 +177,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox ShowPopUpBox;
     }
 }

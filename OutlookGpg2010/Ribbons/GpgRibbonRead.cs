@@ -1,6 +1,6 @@
-﻿using Microsoft.Office.Interop.Outlook;
+﻿using System.Windows.Forms;
+using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
-using System.Windows.Forms;
 
 namespace OutlookGpg2010
 {
@@ -44,7 +44,15 @@ namespace OutlookGpg2010
             try
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
-                MessageBox.Show((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body).message);
+
+                if (Properties.userSettings.Default.ShowDecryptPopUp)
+                {
+                    MessageBox.Show((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body).message);
+                }
+                else
+                {
+                    mail.Body = (new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body).message;
+                }
             }
             catch (System.Exception ex)
             {

@@ -58,5 +58,17 @@ namespace OutlookGpg2010.Properties {
                 this["AlwaysDecrypt"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowDecryptPopUp {
+            get {
+                return ((bool)(this["ShowDecryptPopUp"]));
+            }
+            set {
+                this["ShowDecryptPopUp"] = value;
+            }
+        }
     }
 }

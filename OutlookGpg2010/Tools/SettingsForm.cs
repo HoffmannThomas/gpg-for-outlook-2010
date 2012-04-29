@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace OutlookGpg2010.Tools
@@ -17,6 +11,7 @@ namespace OutlookGpg2010.Tools
             this.AlwaysSignBox.Checked = Properties.userSettings.Default.AlwaysSign;
             this.AlwaysEncryptBox.Checked = Properties.userSettings.Default.AlwaysEncrypt;
             this.AlwaysDecryptBox.Checked = Properties.userSettings.Default.AlwaysDecrypt;
+            this.ShowPopUpBox.Checked = Properties.userSettings.Default.ShowDecryptPopUp;
         }
 
         private void AlwaysSignBox_CheckedChanged(object sender, EventArgs e)
@@ -31,11 +26,16 @@ namespace OutlookGpg2010.Tools
         {
         }
 
+        private void ShowPopUpBox_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
         private void saveButton_Click(object sender, EventArgs e)
         {
             Properties.userSettings.Default.AlwaysSign = this.AlwaysSignBox.Checked;
             Properties.userSettings.Default.AlwaysEncrypt = this.AlwaysEncryptBox.Checked;
             Properties.userSettings.Default.AlwaysDecrypt = this.AlwaysDecryptBox.Checked;
+            Properties.userSettings.Default.ShowDecryptPopUp = this.ShowPopUpBox.Checked;
 
             this.Close();
         }
@@ -44,5 +44,7 @@ namespace OutlookGpg2010.Tools
         {
             this.Close();
         }
+
+
     }
 }
