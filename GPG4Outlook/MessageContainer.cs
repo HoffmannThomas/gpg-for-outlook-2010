@@ -7,12 +7,12 @@ namespace GPG4OutlookLib
 {
     public class MessageContainer
     {
-        public String message { get; private set; }
+        public String output { get; private set; }
         public String information { get; private set; }
 
         public MessageContainer(String message, String information)
         {
-            this.message = message;
+            this.output = message;
             this.information = information;
         }
     }

@@ -15,7 +15,21 @@ namespace GPG4OutlookLib
         private static String _errorString; //locked by error reader thread
         private static String mailRegexPattern = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
-        public static MessageContainer execute(String commandLine, String input)
+        public static String[] listKeys()
+        {
+            MatchCollection matches = Regex.Matches(execute("--list-keys", null).output, mailRegexPattern, RegexOptions.Multiline);
+
+            List<String> keys = new List<String>();
+
+            foreach (Match match in matches)
+            {
+                keys.Add(match.Value);
+            }
+
+            return keys.ToArray();
+        }
+
+        internal static MessageContainer execute(String commandLine, String input)
         {
             gpgProcess = Toolbox.createNewGPGProcess(commandLine);
 
@@ -36,7 +50,7 @@ namespace GPG4OutlookLib
             return new MessageContainer(new StreamReader(_outputStream).ReadToEnd(), _errorString);
         }
 
-        public static Byte[] execute(Byte[] bytes, String commandLine)
+        internal static Byte[] execute(Byte[] bytes, String commandLine)
         {
             MemoryStream stream = new MemoryStream(bytes);
 
@@ -57,20 +71,6 @@ namespace GPG4OutlookLib
             if (gpgProcess.ExitCode != 0) { throw new GPG4OutlookException(_errorString); }
 
             return (new BinaryReader(_outputStream)).ReadBytes((int)_outputStream.Length);
-        }
-
-        public static String[] listKeys()
-        {
-            MatchCollection matches = Regex.Matches(execute("--list-keys", null).message, mailRegexPattern, RegexOptions.Multiline);
-
-            List<String> keys = new List<String>();
-
-            foreach (Match match in matches)
-            {
-                keys.Add(match.Value);
-            }
-
-            return keys.ToArray();
         }
 
         private static Process createNewGPGProcess(String commandLine)
@@ -120,6 +120,5 @@ namespace GPG4OutlookLib
                 _errorString = error;
             }
         }
-
     }
 }

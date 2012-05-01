@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
+using GPG4OutlookLib;
 
 namespace OutlookGpg2010
 {
@@ -53,28 +54,17 @@ namespace OutlookGpg2010
                 {
                     try
                     {
-                        if (!encrypt && sign)
+                        if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
                         {
-                            mail.Body = ((new GPG4OutlookLib.Methods.Sign(getMyEmailAddress())).execute(mail.Body)).message;
+                            if (!encrypt && sign) { mail.Body = GPG4OutlookLibary.Sign(mail.Body, getMyEmailAddress()).output; }
+                            if (encrypt && !sign) { mail.Body = GPG4OutlookLibary.Encrypt(mail.Body, mail.Recipients, true).output; }
+                            if (encrypt && sign) { mail.Body = GPG4OutlookLibary.SignAndEncrypt(mail.Body, mail.Recipients, true, getMyEmailAddress()).output; }
                         }
-                        if (encrypt && !sign)
+                        else
                         {
-                            mail.Body = ((new GPG4OutlookLib.Methods.Encrypt(mail.Recipients, true)).execute(mail.Body)).message;
-                            encryptAttachments(mail);
-                        }
-                        if (encrypt && sign)
-                        {
-
-                            if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
-                            {
-                                mail.Body = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress(), true)).execute(mail.Body)).message;
-                            }
-                            else
-                            {
-                                mail.HTMLBody = ((new GPG4OutlookLib.Methods.SignAndEncrypt(mail.Recipients, getMyEmailAddress(), true)).execute(mail.HTMLBody)).message;
-                            }
-
-                            encryptAttachments(mail);
+                            if (!encrypt && sign) { mail.HTMLBody = GPG4OutlookLibary.Sign(mail.HTMLBody, getMyEmailAddress()).output; }
+                            if (encrypt && !sign) { mail.HTMLBody = GPG4OutlookLibary.Encrypt(mail.HTMLBody, mail.Recipients, true).output; }
+                            if (encrypt && sign) { mail.HTMLBody = GPG4OutlookLibary.SignAndEncrypt(mail.HTMLBody, mail.Recipients, true, getMyEmailAddress()).output; }
                         }
                     }
                     catch (System.Exception ex)
@@ -110,7 +100,7 @@ namespace OutlookGpg2010
             {
                 Object attachmentData = attachment.PropertyAccessor.GetProperty(PR_ATTACH_DATA_BIN);
 
-                Byte[] data = new GPG4OutlookLib.Methods.Encrypt(mail.Recipients, false).execute((Byte[])attachmentData);
+                Byte[] data = null;
 
                 attachment.PropertyAccessor.SetProperty(PR_ATTACH_DATA_BIN, data);
             }

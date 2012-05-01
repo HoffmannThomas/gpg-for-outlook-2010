@@ -4,9 +4,9 @@ using Microsoft.Office.Interop.Outlook;
 
 namespace GPG4OutlookLib.Methods
 {
-    public class Encrypt : Method
+    internal class Encrypt : Method
     {
-        public Encrypt(Recipients recipients, Boolean armor)
+        internal Encrypt(Recipients recipients, Boolean armor)
             : base()
         {
             if (recipients == null || recipients.Count == 0) { throw new GPG4OutlookException(Properties.messages.Default.recipientError); }

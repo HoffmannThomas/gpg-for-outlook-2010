@@ -1,8 +1,8 @@
 ﻿namespace GPG4OutlookLib.Methods
 {
-    public class Decrypt : Method
+    internal class Decrypt : Method
     {
-        public Decrypt()
+        internal Decrypt()
             : base()
         {
             this.commandLine.Append("--decrypt ");

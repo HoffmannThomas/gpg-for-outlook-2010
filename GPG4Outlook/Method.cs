@@ -6,22 +6,22 @@ using System.IO;
 
 namespace GPG4OutlookLib
 {
-    public abstract class Method
+    internal abstract class Method
     {
         protected StringBuilder commandLine;
 
-        public Method()
+        internal Method()
         {
             this.commandLine = new StringBuilder();
             this.commandLine.Append("--no-verbose ");
         }
 
-        public MessageContainer execute(String message)
+        internal MessageContainer execute(String message)
         {
             return Toolbox.execute(this.commandLine.ToString(), message);
         }
 
-        public Byte[] execute(Byte[] bytes)
+        internal Byte[] execute(Byte[] bytes)
         {
             return Toolbox.execute(bytes, this.commandLine.ToString());
         }

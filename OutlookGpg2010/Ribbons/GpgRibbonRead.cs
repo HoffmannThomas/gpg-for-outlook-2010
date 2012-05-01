@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using GPG4OutlookLib;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
 
@@ -32,7 +33,8 @@ namespace OutlookGpg2010
             try
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
-                MessageBox.Show(((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body)).information, "Verfiied information");
+                if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.Body).information, "Verfiied information"); }
+                else { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.HTMLBody).information, "Verfiied information"); }
             }
             catch (System.Exception ex)
             {
@@ -48,27 +50,13 @@ namespace OutlookGpg2010
 
                 if (Properties.userSettings.Default.ShowDecryptPopUp)
                 {
-                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
-                    {
-                        MessageBox.Show((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body).message, "Decrypted message:");
-                    }
-                    else
-                    {
-                        MessageBox.Show((new GPG4OutlookLib.Methods.Decrypt()).execute(mail.HTMLBody).message, "Decrypted message:");
-                    }
+                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.Body).output, "Decrypted message:"); }
+                    else { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.HTMLBody).output, "Decrypted message:"); }
                 }
                 else
                 {
-                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
-                    {
-                        mail.Body = (new GPG4OutlookLib.Methods.Decrypt()).execute(mail.Body).message;
-                    }
-                    else
-                    {
-                        mail.HTMLBody = (new GPG4OutlookLib.Methods.Decrypt()).execute(mail.HTMLBody).message;
-                    }
-
-                    decryptAttachments(mail);
+                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { mail.Body = GPG4OutlookLibary.Decrypt(mail.Body).output; }
+                    else { mail.HTMLBody = GPG4OutlookLibary.Decrypt(mail.HTMLBody).output; }
                 }
             }
             catch (System.Exception ex)
@@ -90,7 +78,7 @@ namespace OutlookGpg2010
             {
                 Object attachmentData = attachment.PropertyAccessor.GetProperty(PR_ATTACH_DATA_BIN);
 
-                Byte[] data = new GPG4OutlookLib.Methods.Decrypt().execute((Byte[])attachmentData);
+                Byte[] data = null;
 
                 attachment.PropertyAccessor.SetProperty(PR_ATTACH_DATA_BIN, data);
             }
