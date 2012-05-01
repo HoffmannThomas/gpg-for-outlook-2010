@@ -23,7 +23,7 @@ namespace GPG4OutlookLib
 
         internal Byte[] execute(Byte[] bytes)
         {
-            return GPG4OutlookToolbox.execute(bytes, this.commandLine.ToString());
+            return GPG4OutlookToolbox.execute(this.commandLine.ToString(), bytes);
         }
     }
 }

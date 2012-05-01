@@ -17,7 +17,7 @@ namespace GPG4OutlookLib
 
         public static String[] listKeys()
         {
-            MatchCollection matches = Regex.Matches(execute("--list-keys", null).output, mailRegexPattern, RegexOptions.Multiline);
+            MatchCollection matches = Regex.Matches(execute("--list-keys").output, mailRegexPattern, RegexOptions.Multiline);
 
             List<String> keys = new List<String>();
 
@@ -29,6 +29,10 @@ namespace GPG4OutlookLib
             return keys.ToArray();
         }
 
+        internal static MessageContainer execute(String commandLine) {
+            return execute(commandLine, "");        
+        }
+
         internal static MessageContainer execute(String commandLine, String input)
         {
             gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
@@ -36,7 +40,7 @@ namespace GPG4OutlookLib
             startOutputReader();
             startErrorReader();
 
-            if (input != null)
+            if (!input.Equals(""))
             {
                 gpgProcess.StandardInput.WriteLine(input);
                 gpgProcess.StandardInput.Flush();
