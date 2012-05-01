@@ -33,8 +33,8 @@ namespace OutlookGpg2010
             try
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
-                if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.Body).information, "Verfiied information"); }
-                else { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.HTMLBody).information, "Verfiied information"); }
+                if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.Body).information, "Verfiied information"); }
+                else { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.HTMLBody).information, "Verfiied information"); }
             }
             catch (System.Exception ex)
             {
@@ -50,13 +50,13 @@ namespace OutlookGpg2010
 
                 if (Properties.userSettings.Default.ShowDecryptPopUp)
                 {
-                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.Body).output, "Decrypted message:"); }
-                    else { MessageBox.Show(GPG4OutlookLibary.Decrypt(mail.HTMLBody).output, "Decrypted message:"); }
+                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.Body).output, "Decrypted message:"); }
+                    else { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.HTMLBody).output, "Decrypted message:"); }
                 }
                 else
                 {
-                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { mail.Body = GPG4OutlookLibary.Decrypt(mail.Body).output; }
-                    else { mail.HTMLBody = GPG4OutlookLibary.Decrypt(mail.HTMLBody).output; }
+                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { mail.Body = GPG4OutlookLibrary.Decrypt(mail.Body).output; }
+                    else { mail.HTMLBody = GPG4OutlookLibrary.Decrypt(mail.HTMLBody).output; }
                 }
             }
             catch (System.Exception ex)

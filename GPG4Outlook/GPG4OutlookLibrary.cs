@@ -3,7 +3,7 @@ using Microsoft.Office.Interop.Outlook;
 
 namespace GPG4OutlookLib
 {
-    public class GPG4OutlookLibary
+    public static class GPG4OutlookLibrary
     {
         public static MessageContainer Sign(String input, String sender)
         {

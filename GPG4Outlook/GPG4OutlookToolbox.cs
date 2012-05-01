@@ -50,7 +50,7 @@ namespace GPG4OutlookLib
             return new MessageContainer(new StreamReader(_outputStream).ReadToEnd(), _errorString);
         }
 
-        internal static Byte[] execute(Byte[] bytes, String commandLine)
+        internal static Byte[] execute(String commandLine, Byte[] bytes)
         {
             MemoryStream stream = new MemoryStream(bytes);
 

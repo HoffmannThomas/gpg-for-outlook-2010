@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GPG4OutlookException.cs" />
-    <Compile Include="GPG4OutlookLibary.cs" />
+    <Compile Include="GPG4OutlookLibrary.cs" />
     <Compile Include="MessageContainer.cs" />
     <Compile Include="Methods\Decrypt.cs" />
     <Compile Include="Methods\Encrypt.cs" />

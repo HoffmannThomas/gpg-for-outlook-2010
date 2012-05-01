@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Outlook;
+
 namespace OutlookGpg2010
 {
     public partial class ThisAddIn
