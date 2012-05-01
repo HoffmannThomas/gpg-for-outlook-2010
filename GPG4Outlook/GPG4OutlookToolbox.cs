@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace GPG4OutlookLib
 {
-    public static class Toolbox
+    public static class GPG4OutlookToolbox
     {
         private static Object thisLock = new Object();
         private static Process gpgProcess;
@@ -31,7 +31,7 @@ namespace GPG4OutlookLib
 
         internal static MessageContainer execute(String commandLine, String input)
         {
-            gpgProcess = Toolbox.createNewGPGProcess(commandLine);
+            gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
 
             startOutputReader();
             startErrorReader();
@@ -54,7 +54,7 @@ namespace GPG4OutlookLib
         {
             MemoryStream stream = new MemoryStream(bytes);
 
-            gpgProcess = Toolbox.createNewGPGProcess(commandLine);
+            gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
 
             startOutputReader();
             startErrorReader();

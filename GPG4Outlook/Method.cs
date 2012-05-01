@@ -18,12 +18,12 @@ namespace GPG4OutlookLib
 
         internal MessageContainer execute(String message)
         {
-            return Toolbox.execute(this.commandLine.ToString(), message);
+            return GPG4OutlookToolbox.execute(this.commandLine.ToString(), message);
         }
 
         internal Byte[] execute(Byte[] bytes)
         {
-            return Toolbox.execute(bytes, this.commandLine.ToString());
+            return GPG4OutlookToolbox.execute(bytes, this.commandLine.ToString());
         }
     }
 }
