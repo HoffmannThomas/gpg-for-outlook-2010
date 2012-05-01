@@ -39,6 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.ShowPopUpBox = new System.Windows.Forms.CheckBox();
             this.keyComboBox = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AlwaysSignBox
@@ -103,7 +104,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(29, 207);
+            this.saveButton.Location = new System.Drawing.Point(95, 223);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 6;
@@ -114,7 +115,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(134, 207);
+            this.cancelButton.Location = new System.Drawing.Point(195, 223);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -146,11 +147,21 @@
             // 
             this.keyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.keyComboBox.FormattingEnabled = true;
-            this.keyComboBox.Location = new System.Drawing.Point(15, 170);
+            this.keyComboBox.Location = new System.Drawing.Point(15, 183);
             this.keyComboBox.Name = "keyComboBox";
             this.keyComboBox.Size = new System.Drawing.Size(362, 21);
             this.keyComboBox.TabIndex = 11;
             this.keyComboBox.SelectedIndexChanged += new System.EventHandler(this.keyComboBox_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 166);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(231, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Select the default mail address used for signing:\r\n";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // SettingsForm
             // 
@@ -158,7 +169,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(401, 251);
+            this.ClientSize = new System.Drawing.Size(401, 264);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.keyComboBox);
             this.Controls.Add(this.ShowPopUpBox);
             this.Controls.Add(this.label4);
@@ -192,5 +204,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox ShowPopUpBox;
         private System.Windows.Forms.ComboBox keyComboBox;
+        private System.Windows.Forms.Label label5;
     }
 }
