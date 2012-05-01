@@ -14,5 +14,8 @@
     <Setting Name="ShowDecryptPopUp" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="UsedEmailAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default SMTP-Adress</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

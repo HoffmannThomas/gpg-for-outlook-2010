@@ -88,7 +88,18 @@ namespace OutlookGpg2010
 
         private static String getMyEmailAddress()
         {
-            return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+            Tools.SelectKey selectKey = new Tools.SelectKey();
+
+            selectKey.ShowDialog();
+
+            if (!selectKey.selectedMailaddress.Equals(Properties.Resources.defaultSMPTAddress))
+            {
+                return selectKey.selectedMailaddress;
+            }
+            else
+            {
+                return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+            }
         }
 
         private static void encryptAttachments(MailItem mail)

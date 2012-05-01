@@ -60,6 +60,15 @@ namespace OutlookGpg2010.Properties {
             }
         }
         
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Default SMTP-Adress ähnelt.
+        /// </summary>
+        internal static string defaultSMPTAddress {
+            get {
+                return ResourceManager.GetString("defaultSMPTAddress", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap error {
             get {
                 object obj = ResourceManager.GetObject("error", resourceCulture);

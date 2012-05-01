@@ -70,5 +70,17 @@ namespace OutlookGpg2010.Properties {
                 this["ShowDecryptPopUp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default SMTP-Adress")]
+        public string UsedEmailAddress {
+            get {
+                return ((string)(this["UsedEmailAddress"]));
+            }
+            set {
+                this["UsedEmailAddress"] = value;
+            }
+        }
     }
 }
