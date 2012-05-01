@@ -49,7 +49,7 @@
     <Compile Include="Methods\Decrypt.cs" />
     <Compile Include="Methods\Encrypt.cs" />
     <Compile Include="Method.cs" />
-    <Compile Include="Methods\Sign.cs" />
+    <Compile Include="Methods\Clearsign.cs" />
     <Compile Include="Methods\SignAndEncrypt.cs" />
     <Compile Include="Properties\messages.Designer.cs">
       <AutoGen>True</AutoGen>

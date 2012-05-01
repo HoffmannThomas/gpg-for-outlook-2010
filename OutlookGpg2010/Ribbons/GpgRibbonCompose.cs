@@ -56,13 +56,13 @@ namespace OutlookGpg2010
                     {
                         if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
                         {
-                            if (!encrypt && sign) { mail.Body = GPG4OutlookLibrary.Sign(mail.Body, getMyEmailAddress()).output; }
+                            if (!encrypt && sign) { mail.Body = GPG4OutlookLibrary.Clearsign(mail.Body, getMyEmailAddress()).output; }
                             if (encrypt && !sign) { mail.Body = GPG4OutlookLibrary.Encrypt(mail.Body, mail.Recipients, true).output; }
                             if (encrypt && sign) { mail.Body = GPG4OutlookLibrary.SignAndEncrypt(mail.Body, mail.Recipients, true, getMyEmailAddress()).output; }
                         }
                         else
                         {
-                            if (!encrypt && sign) { mail.HTMLBody = GPG4OutlookLibrary.Sign(mail.HTMLBody, getMyEmailAddress()).output; }
+                            if (!encrypt && sign) { mail.HTMLBody = GPG4OutlookLibrary.Clearsign(mail.HTMLBody, getMyEmailAddress()).output; }
                             if (encrypt && !sign) { mail.HTMLBody = GPG4OutlookLibrary.Encrypt(mail.HTMLBody, mail.Recipients, true).output; }
                             if (encrypt && sign) { mail.HTMLBody = GPG4OutlookLibrary.SignAndEncrypt(mail.HTMLBody, mail.Recipients, true, getMyEmailAddress()).output; }
                         }

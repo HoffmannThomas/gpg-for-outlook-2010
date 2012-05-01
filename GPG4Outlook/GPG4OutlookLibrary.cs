@@ -5,9 +5,9 @@ namespace GPG4OutlookLib
 {
     public static class GPG4OutlookLibrary
     {
-        public static MessageContainer Sign(String input, String sender)
+        public static MessageContainer Clearsign(String input, String sender)
         {
-            return new Methods.Sign(sender).execute(input);
+            return new Methods.Clearsign(sender).execute(input);
         }
 
         public static MessageContainer Encrypt(String input, Recipients recipients, Boolean armor)

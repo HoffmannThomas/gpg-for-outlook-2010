@@ -16,9 +16,9 @@ namespace GPG4OutlookLib
             this.commandLine.Append("--no-verbose ");
         }
 
-        internal MessageContainer execute(String message)
+        internal MessageContainer execute(String input)
         {
-            return GPG4OutlookToolbox.execute(this.commandLine.ToString(), message);
+            return GPG4OutlookToolbox.execute(this.commandLine.ToString(), input);
         }
 
         internal Byte[] execute(Byte[] bytes)

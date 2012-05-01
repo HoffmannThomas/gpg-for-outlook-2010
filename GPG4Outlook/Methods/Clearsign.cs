@@ -2,9 +2,9 @@
 
 namespace GPG4OutlookLib.Methods
 {
-    internal class Sign : Method
+    internal class Clearsign : Method
     {
-        internal Sign(String sender)
+        internal Clearsign(String sender)
             : base()
         {
             this.commandLine.Append("--clearsign -u ");
