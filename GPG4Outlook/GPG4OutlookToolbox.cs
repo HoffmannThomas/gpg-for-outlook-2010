@@ -17,7 +17,7 @@ namespace GPG4OutlookLib
 
         public static String[] listKeys()
         {
-            MatchCollection matches = Regex.Matches(execute("--list-keys").output, mailRegexPattern, RegexOptions.Multiline);
+            MatchCollection matches = Regex.Matches(execute("--list-secret-keys").output, mailRegexPattern, RegexOptions.Multiline);
 
             List<String> keys = new List<String>();
 
