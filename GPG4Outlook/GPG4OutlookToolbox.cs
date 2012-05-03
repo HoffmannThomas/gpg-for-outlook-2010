@@ -47,7 +47,11 @@ namespace GPG4OutlookLib
                 gpgProcess.StandardInput.Close();
             }
 
-            if (!gpgProcess.WaitForExit(10000)) { throw new GPG4OutlookException(Properties.messages.Default.timeOutError); }
+            if (!gpgProcess.WaitForExit(10000))
+            {
+                gpgProcess.Kill();
+                throw new GPG4OutlookException(Properties.messages.Default.timeOutError);
+            }
 
             if (gpgProcess.ExitCode != 0) { throw new GPG4OutlookException(_errorString); }
 
