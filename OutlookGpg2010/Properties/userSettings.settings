@@ -15,7 +15,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UsedEmailAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Default SMTP-Adress</Value>
+      <Value Profile="(Default)">Default SMTP-Address</Value>
     </Setting>
   </Settings>
 </SettingsFile>

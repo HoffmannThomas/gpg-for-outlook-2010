@@ -61,7 +61,7 @@ namespace OutlookGpg2010.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Default SMTP-Adress ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Default SMTP-Address ähnelt.
         /// </summary>
         internal static string defaultSMPTAddress {
             get {

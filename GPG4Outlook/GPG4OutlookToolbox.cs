@@ -13,7 +13,7 @@ namespace GPG4OutlookLib
         private static Process gpgProcess;
         private static Stream _outputStream; // locked by output reader thread
         private static String _errorString; //locked by error reader thread
-        private static String mailRegexPattern = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+        private static String mailRegexPattern = @"(?!\.)(""([^""\r\\]|\\[""\r\\])*""|([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)+)(?<!\.)@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]";
 
         public static String[] listKeys()
         {
@@ -29,8 +29,9 @@ namespace GPG4OutlookLib
             return keys.ToArray();
         }
 
-        internal static MessageContainer execute(String commandLine) {
-            return execute(commandLine, "");        
+        internal static MessageContainer execute(String commandLine)
+        {
+            return execute(commandLine, "");
         }
 
         internal static MessageContainer execute(String commandLine, String input)

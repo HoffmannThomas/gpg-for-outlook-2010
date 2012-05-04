@@ -73,7 +73,7 @@ namespace OutlookGpg2010.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Default SMTP-Adress")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default SMTP-Address")]
         public string UsedEmailAddress {
             get {
                 return ((string)(this["UsedEmailAddress"]));
