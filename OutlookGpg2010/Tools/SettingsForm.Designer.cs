@@ -47,9 +47,9 @@
             this.AlwaysSignBox.AutoSize = true;
             this.AlwaysSignBox.Location = new System.Drawing.Point(15, 34);
             this.AlwaysSignBox.Name = "AlwaysSignBox";
-            this.AlwaysSignBox.Size = new System.Drawing.Size(83, 17);
+            this.AlwaysSignBox.Size = new System.Drawing.Size(81, 17);
             this.AlwaysSignBox.TabIndex = 0;
-            this.AlwaysSignBox.Text = "Always Sign";
+            this.AlwaysSignBox.Text = "Always sign";
             this.AlwaysSignBox.UseVisualStyleBackColor = true;
             this.AlwaysSignBox.CheckedChanged += new System.EventHandler(this.AlwaysSignBox_CheckedChanged);
             // 
@@ -58,9 +58,9 @@
             this.AlwaysEncryptBox.AutoSize = true;
             this.AlwaysEncryptBox.Location = new System.Drawing.Point(15, 70);
             this.AlwaysEncryptBox.Name = "AlwaysEncryptBox";
-            this.AlwaysEncryptBox.Size = new System.Drawing.Size(98, 17);
+            this.AlwaysEncryptBox.Size = new System.Drawing.Size(97, 17);
             this.AlwaysEncryptBox.TabIndex = 1;
-            this.AlwaysEncryptBox.Text = "Always Encrypt";
+            this.AlwaysEncryptBox.Text = "Always encrypt";
             this.AlwaysEncryptBox.UseVisualStyleBackColor = true;
             this.AlwaysEncryptBox.CheckedChanged += new System.EventHandler(this.AlwaysEncryptBox_CheckedChanged);
             // 
@@ -69,9 +69,9 @@
             this.AlwaysDecryptBox.AutoSize = true;
             this.AlwaysDecryptBox.Location = new System.Drawing.Point(15, 110);
             this.AlwaysDecryptBox.Name = "AlwaysDecryptBox";
-            this.AlwaysDecryptBox.Size = new System.Drawing.Size(99, 17);
+            this.AlwaysDecryptBox.Size = new System.Drawing.Size(97, 17);
             this.AlwaysDecryptBox.TabIndex = 2;
-            this.AlwaysDecryptBox.Text = "Always Decrypt";
+            this.AlwaysDecryptBox.Text = "Always decrypt";
             this.AlwaysDecryptBox.UseVisualStyleBackColor = true;
             this.AlwaysDecryptBox.CheckedChanged += new System.EventHandler(this.AlwaysDecryptBox_CheckedChanged);
             // 
@@ -130,7 +130,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(365, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Check if you want to show the decrypted message only in a pop up window:\r\n";
+            this.label4.Text = "Check if you want to show the decrypted message only in a pop up window:";
             // 
             // ShowPopUpBox
             // 

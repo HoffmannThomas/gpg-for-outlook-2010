@@ -205,11 +205,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tools\SelectKey.cs">
+    <Compile Include="Tools\SelectIdentityForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools\SelectKey.Designer.cs">
-      <DependentUpon>SelectKey.cs</DependentUpon>
+    <Compile Include="Tools\SelectIdentityForm.Designer.cs">
+      <DependentUpon>SelectIdentityForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\SettingsForm.cs">
       <SubType>Form</SubType>
@@ -227,8 +227,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Tools\SelectKey.resx">
-      <DependentUpon>SelectKey.cs</DependentUpon>
+    <EmbeddedResource Include="Tools\SelectIdentityForm.resx">
+      <DependentUpon>SelectIdentityForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

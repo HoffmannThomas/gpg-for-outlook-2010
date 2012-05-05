@@ -79,7 +79,7 @@ namespace OutlookGpg2010
 
         private static String getMyEmailAddress()
         {
-            Tools.SelectKey selectKey = new Tools.SelectKey();
+            Tools.SelectIdentityForm selectKey = new Tools.SelectIdentityForm();
 
             selectKey.ShowDialog();
 

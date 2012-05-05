@@ -9,11 +9,11 @@ using System.Windows.Forms;
 
 namespace OutlookGpg2010.Tools
 {
-    public partial class SelectKey : Form
+    public partial class SelectIdentityForm : Form
     {
         public String selectedMailaddress;
 
-        public SelectKey()
+        public SelectIdentityForm()
         {
             InitializeComponent();
             this.refreshKeyComboBox();
@@ -34,6 +34,11 @@ namespace OutlookGpg2010.Tools
         {
             this.selectedMailaddress = this.keyComboBox.SelectedItem.ToString();
             this.Close();
+        }
+
+        private void SelectKey_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
