@@ -14,8 +14,11 @@ namespace OutlookGpg2010
         {
             inspector = Globals.ThisAddIn.Application.ActiveInspector();
 
-            if (Properties.userSettings.Default.AlwaysDecrypt.Equals(true)) { decryptMailItem(); }
-
+            if (Properties.userSettings.Default.AlwaysDecrypt.Equals(true)) {
+                //TODO: Display and/or store verify information
+                verifyMailItem();
+                decryptMailItem();
+            }
         }
 
         private void verifyImage_Click(object sender, RibbonControlEventArgs e)
@@ -47,6 +50,8 @@ namespace OutlookGpg2010
             try
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
+
+                //TODO: Decrypt Attachments
 
                 if (Properties.userSettings.Default.ShowDecryptPopUp)
                 {

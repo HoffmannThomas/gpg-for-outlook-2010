@@ -54,6 +54,7 @@ namespace OutlookGpg2010
                 {
                     try
                     {
+                        //TODO: Encrypt Attachments
                         if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
                         {
                             if (!encrypt && sign) { mail.Body = GPG4OutlookLibrary.Clearsign(mail.Body, getMyEmailAddress()).output; }
