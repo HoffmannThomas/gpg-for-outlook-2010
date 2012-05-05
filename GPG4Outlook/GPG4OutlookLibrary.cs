@@ -29,5 +29,10 @@ namespace GPG4OutlookLib
         {
             return Decrypt(input);
         }
+
+        public static String[] listKeys()
+        {
+            return GPG4OutlookToolbox.listKeys();
+        }
     }
 }

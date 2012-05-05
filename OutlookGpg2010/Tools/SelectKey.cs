@@ -22,7 +22,7 @@ namespace OutlookGpg2010.Tools
         private void refreshKeyComboBox()
         {
             this.keyComboBox.Items.Add(Properties.Resources.defaultSMPTAddress);
-            this.keyComboBox.Items.AddRange(GPG4OutlookLib.GPG4OutlookToolbox.listKeys());
+            this.keyComboBox.Items.AddRange(GPG4OutlookLib.GPG4OutlookLibrary.listKeys());
             this.keyComboBox.SelectedItem = Properties.userSettings.Default.UsedEmailAddress;
         }
 

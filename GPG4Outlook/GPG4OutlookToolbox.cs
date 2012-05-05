@@ -15,7 +15,7 @@ namespace GPG4OutlookLib
         private static String _errorString; //locked by error reader thread
         private static String mailRegexPattern = @"(?!\.)(""([^""\r\\]|\\[""\r\\])*""|([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)+)(?<!\.)@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]";
 
-        public static String[] listKeys()
+        internal static String[] listKeys()
         {
             MatchCollection matches = Regex.Matches(execute("--list-secret-keys").output, mailRegexPattern, RegexOptions.Multiline);
 
