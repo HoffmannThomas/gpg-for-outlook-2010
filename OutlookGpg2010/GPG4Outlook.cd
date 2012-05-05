@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OutlookGpg2010.Properties.Resources" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAEBEAAgAQAAAAAAAAAAAAAAAIQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.Properties.userSettings" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAACAAAAAAAAAAAAMAAAAAABAQAACAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.GpgRibbonCompose" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCACAAEAACQAACAAAACQAAACAMAECAAAAAAIAECAAAA=</HashCode>
+      <FileName>Ribbons\GpgRibbonCompose.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.ThisRibbonCollection" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAQAAAAAAAAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.GpgRibbonRead" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCAAAAAgACQAAAAAAAiAAQAiAMAAAAABCAAggAAAAAA=</HashCode>
+      <FileName>Ribbons\GpgRibbonRead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.ThisAddIn" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAwAACQCBAAEQAgAQAAgFgAAAAAABAQAAgAKAAAACg=</HashCode>
+      <FileName>ThisAddIn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.Globals" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAgAAAAgAAAAAAIAAAAAAAAAAAgAAAAAACAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.ThisFormRegionCollection" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.WindowFormRegionCollection" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.Tools.SelectKey" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAABACAAQASAAAgEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\SelectKey.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OutlookGpg2010.Tools.SettingsForm" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhAACYAACQAABAASACAAwASAAAoAAAAAAAQQAAAAAA=</HashCode>
+      <FileName>Tools\SettingsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

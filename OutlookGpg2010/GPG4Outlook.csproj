@@ -234,6 +234,7 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="GPG4Outlook.cd" />
     <None Include="OutlookGpg2010_TemporaryKey.pfx" />
     <None Include="Properties\userSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -97,6 +97,31 @@ namespace GPG4OutlookTest
             testAddresses.Add(@"Ima Fool@example.com", false);
             testAddresses.Add(@"harry.hirsch@example.com", true);
 
+            testAddresses.Add(@"niceandsimple@example.com", true);
+            testAddresses.Add(@"simplewith+symbol@example.com", true);
+            testAddresses.Add(@"less.common@example.com", true);
+            testAddresses.Add(@"a.little.more.unusual@dept.example.com", true);
+            testAddresses.Add(@"""much.more\\ unusual""@example.com", true);
+            testAddresses.Add(@"""very.unusual.@.unusual.com""@example.com", true);
+            testAddresses.Add(@"!#$%&'*+-/=?^_`{}|~@example.org", true);
+            testAddresses.Add(@"""()<>[]:,;@\\\""!#$%&'*+-/=?^_`{}|\\ \\ ~\\ \\ \\ ?\\ \\ \\ ^_`{}|~.a""@example.org", true);
+            testAddresses.Add(@"""""@example.org", true);
+
+            testAddresses.Add(@"'@[10.10.10.10]", false);
+            testAddresses.Add(@"user@[IPv6:2001:db8:1ff::a0b:dbd0]", false);
+            testAddresses.Add(@"""very.(),:;<>[]\\"".VERY.\\""very@\\\ \\""very\\"".unusual""@strange.example.com", false);
+            testAddresses.Add(@"0@a", false);
+            testAddresses.Add(@"postbox@com (top-level domains are valid hostnames)", false);
+
+            testAddresses.Add(@"Abc.example.com", false);
+            testAddresses.Add(@"Abc.@example.com", false);
+            testAddresses.Add(@"Abc..123@example.com", false);
+            testAddresses.Add(@"A@b@c@example.com", false);
+            testAddresses.Add(@"a""b(c)d,e:f;g<h>i[j\k]l@example.com", false);
+            testAddresses.Add(@"just""not""right@example.com", false);
+            testAddresses.Add(@"this is""not\allowed@example.com", false);
+            testAddresses.Add(@"this\ still\""not\\allowed@example.com", false);
+
             int counter = 0;
 
             foreach (String testAddress in testAddresses.Keys)
