@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Office.Interop.Outlook;
+using GPG4OutlookLib.Tools;
 
 namespace GPG4OutlookLib
 {

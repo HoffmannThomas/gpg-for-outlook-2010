@@ -5,7 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace GPG4OutlookLib
+namespace GPG4OutlookLib.Tools
 {
     public static class GPG4OutlookToolbox
     {
@@ -36,6 +36,9 @@ namespace GPG4OutlookLib
 
         internal static MessageContainer execute(String commandLine, String input)
         {
+            PleaseWaitForm pleaseWaitForm = new PleaseWaitForm();
+            pleaseWaitForm.Show();
+
             gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
 
             startOutputReader();
@@ -48,11 +51,14 @@ namespace GPG4OutlookLib
                 gpgProcess.StandardInput.Close();
             }
 
-            if (!gpgProcess.WaitForExit(10000))
+            if (!gpgProcess.WaitForExit(60000))
             {
+                pleaseWaitForm.Close();
                 gpgProcess.Kill();
                 throw new GPG4OutlookException(Properties.messages.Default.timeOutError);
             }
+
+            pleaseWaitForm.Close();
 
             if (gpgProcess.ExitCode != 0) { throw new GPG4OutlookException(_errorString); }
 

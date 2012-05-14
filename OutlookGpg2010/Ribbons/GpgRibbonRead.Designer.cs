@@ -34,19 +34,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gpgTab = Factory.CreateRibbonTab();
-            this.gpg2010Group = Factory.CreateRibbonGroup();
-            this.verifyButton = Factory.CreateRibbonButton();
-            this.decryptButton = Factory.CreateRibbonButton();
-            this.settingsButton = Factory.CreateRibbonButton();
+            this.gpgTab = this.Factory.CreateRibbonTab();
+            this.gpg2010Group = this.Factory.CreateRibbonGroup();
+            this.verifyButton = this.Factory.CreateRibbonButton();
+            this.decryptButton = this.Factory.CreateRibbonButton();
+            this.settingsButton = this.Factory.CreateRibbonButton();
+            this.verifyGroup = this.Factory.CreateRibbonGroup();
+            this.verifyLabel1 = this.Factory.CreateRibbonLabel();
+            this.verifyLabel2 = this.Factory.CreateRibbonLabel();
             this.gpgTab.SuspendLayout();
             this.gpg2010Group.SuspendLayout();
-            this.SuspendLayout();
+            this.verifyGroup.SuspendLayout();
             // 
             // gpgTab
             // 
             this.gpgTab.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.gpgTab.Groups.Add(this.gpg2010Group);
+            this.gpgTab.Groups.Add(this.verifyGroup);
             this.gpgTab.Label = "GPG 2010";
             this.gpgTab.Name = "gpgTab";
             // 
@@ -80,6 +84,23 @@
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.settingsButton_Click);
             // 
+            // verifyGroup
+            // 
+            this.verifyGroup.Items.Add(this.verifyLabel1);
+            this.verifyGroup.Items.Add(this.verifyLabel2);
+            this.verifyGroup.Label = "Verify Information";
+            this.verifyGroup.Name = "verifyGroup";
+            // 
+            // verifyLabel1
+            // 
+            this.verifyLabel1.Label = "Verified information";
+            this.verifyLabel1.Name = "verifyLabel1";
+            // 
+            // verifyLabel2
+            // 
+            this.verifyLabel2.Label = "nothing to verify";
+            this.verifyLabel2.Name = "verifyLabel2";
+            // 
             // GpgRibbonRead
             // 
             this.Name = "GpgRibbonRead";
@@ -90,7 +111,8 @@
             this.gpgTab.PerformLayout();
             this.gpg2010Group.ResumeLayout(false);
             this.gpg2010Group.PerformLayout();
-            this.ResumeLayout(false);
+            this.verifyGroup.ResumeLayout(false);
+            this.verifyGroup.PerformLayout();
 
         }
 
@@ -101,6 +123,9 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton decryptButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton verifyButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton settingsButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup verifyGroup;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel verifyLabel1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel verifyLabel2;
     }
 
     partial class ThisRibbonCollection

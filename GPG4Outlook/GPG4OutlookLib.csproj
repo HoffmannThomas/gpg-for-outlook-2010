@@ -37,15 +37,17 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GPG4OutlookException.cs" />
+    <Compile Include="Exceptions\GPG4OutlookException.cs" />
     <Compile Include="GPG4OutlookLibrary.cs" />
-    <Compile Include="MessageContainer.cs" />
+    <Compile Include="Tools\MessageContainer.cs" />
     <Compile Include="Methods\Decrypt.cs" />
     <Compile Include="Methods\Encrypt.cs" />
     <Compile Include="Method.cs" />
@@ -62,12 +64,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="GPG4OutlookToolbox.cs" />
+    <Compile Include="Tools\GPG4OutlookToolbox.cs" />
+    <Compile Include="Tools\PleaseWaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\PleaseWaitForm.Designer.cs">
+      <DependentUpon>PleaseWaitForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\PleaseWaitForm.resx">
+      <DependentUpon>PleaseWaitForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

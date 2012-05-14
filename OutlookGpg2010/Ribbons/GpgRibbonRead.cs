@@ -12,12 +12,11 @@ namespace OutlookGpg2010
 
         private void GpgRibbonRead_Load(object sender, RibbonUIEventArgs e)
         {
-            inspector = Globals.ThisAddIn.Application.ActiveInspector();
+            inspector = Globals.ThisAddIn.Application.ActiveInspector();            
 
             if (Properties.userSettings.Default.AlwaysDecrypt.Equals(true)) {
-                //TODO: Display and/or store verify information
-                verifyMailItem();
-                decryptMailItem();
+                this.verifyMailItem();
+                this.decryptMailItem();
             }
         }
 
@@ -35,9 +34,17 @@ namespace OutlookGpg2010
         {
             try
             {
+                String information;
+
                 MailItem mail = (MailItem)inspector.CurrentItem;
-                if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.Body).information, "Verfiied information"); }
-                else { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.HTMLBody).information, "Verfiied information"); }
+                if (mail.BodyFormat == OlBodyFormat.olFormatPlain) {
+                    information = GPG4OutlookLibrary.Decrypt(mail.Body).information;                    
+                }
+                else {
+                    information = GPG4OutlookLibrary.Decrypt(mail.HTMLBody).information;
+                }
+
+                this.verifyLabel2.Label = information;
             }
             catch (System.Exception ex)
             {

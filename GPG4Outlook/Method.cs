@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.IO;
+using GPG4OutlookLib.Tools;
 
 namespace GPG4OutlookLib
 {

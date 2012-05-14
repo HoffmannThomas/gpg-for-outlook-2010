@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GPG4OutlookLib
+namespace GPG4OutlookLib.Tools
 {
     public class MessageContainer
     {

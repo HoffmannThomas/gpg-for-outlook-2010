@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using GPG4OutlookLib.Tools;
 
 namespace GPG4OutlookTest
 {
