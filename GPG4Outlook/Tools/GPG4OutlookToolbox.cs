@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Microsoft.Office.Interop.Outlook;
 
 namespace GPG4OutlookLib.Tools
 {
-    public static class GPG4OutlookToolbox
+    internal static class GPG4OutlookToolbox
     {
         private static Object thisLock = new Object();
         private static Process gpgProcess;
@@ -17,7 +18,7 @@ namespace GPG4OutlookLib.Tools
 
         internal static String[] listKeys()
         {
-            MatchCollection matches = Regex.Matches(execute("--list-secret-keys").output, mailRegexPattern, RegexOptions.Multiline);
+            MatchCollection matches = Regex.Matches(execute("--list-secret-keys", "", true).output, mailRegexPattern, RegexOptions.Multiline);
 
             List<String> keys = new List<String>();
 
@@ -29,22 +30,19 @@ namespace GPG4OutlookLib.Tools
             return keys.ToArray();
         }
 
-        internal static MessageContainer execute(String commandLine)
-        {
-            return execute(commandLine, "");
-        }
-
-        internal static MessageContainer execute(String commandLine, String input)
+        internal static MessageContainer execute(String commandLine, String input, Boolean isFile)
         {
             PleaseWaitForm pleaseWaitForm = new PleaseWaitForm();
             pleaseWaitForm.Show();
+
+            if (isFile) { commandLine = commandLine + " " + input; }
 
             gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
 
             startOutputReader();
             startErrorReader();
 
-            if (!input.Equals(""))
+            if (!isFile)
             {
                 gpgProcess.StandardInput.WriteLine(input);
                 gpgProcess.StandardInput.Flush();
@@ -65,27 +63,30 @@ namespace GPG4OutlookLib.Tools
             return new MessageContainer(new StreamReader(_outputStream).ReadToEnd(), _errorString);
         }
 
-        internal static Byte[] execute(String commandLine, Byte[] bytes)
+        internal static Dictionary<String, String> saveAttachmentsTemporary(Attachments attachments)
         {
-            MemoryStream stream = new MemoryStream(bytes);
+            Dictionary<String, String> attachmentDictionary = new Dictionary<String, String>();
 
-            gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
+            foreach (Attachment attachment in attachments)
+            {
+                String tempfileName = Path.GetTempPath() + attachment.FileName.Replace(" ", "_");
+                attachment.SaveAsFile(tempfileName);
+                attachmentDictionary.Add(tempfileName, attachment.DisplayName);
+            }
 
-            startOutputReader();
-            startErrorReader();
+            for (int i = 0; i <= attachments.Count; i++) { attachments.Remove(i); }         
 
-            stream.CopyTo(gpgProcess.StandardInput.BaseStream);
+            return attachmentDictionary;
+        }
 
-            gpgProcess.StandardInput.BaseStream.Flush();
-            gpgProcess.StandardInput.BaseStream.Close();
-            gpgProcess.StandardInput.Flush();
-            gpgProcess.StandardInput.Close();
-
-            if (!gpgProcess.WaitForExit(10000)) { throw new GPG4OutlookException(Properties.messages.Default.timeOutError); }
-
-            if (gpgProcess.ExitCode != 0) { throw new GPG4OutlookException(_errorString); }
-
-            return (new BinaryReader(_outputStream)).ReadBytes((int)_outputStream.Length);
+        internal static void cleanupTemporaryAttachments(Dictionary<String, String> attachmentDictionary)
+        {
+            foreach (String temporaryAttachment in attachmentDictionary.Keys)
+            {
+                File.Delete(temporaryAttachment);
+                File.Delete(temporaryAttachment + ".gpg");
+                File.Delete(temporaryAttachment + ".asc");
+            }
         }
 
         private static Process createNewGPGProcess(String commandLine)

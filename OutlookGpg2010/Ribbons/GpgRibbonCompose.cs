@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
 using GPG4OutlookLib;
+using System.IO;
+using System.Collections.Generic;
 
 namespace OutlookGpg2010
 {
@@ -54,24 +56,26 @@ namespace OutlookGpg2010
                 {
                     try
                     {
-                        //TODO: Encrypt Attachments
+                        encryptAttachments(mail);
+
                         if (mail.BodyFormat == OlBodyFormat.olFormatPlain)
                         {
-                            if (!encrypt && sign) { mail.Body = GPG4OutlookLibrary.Clearsign(mail.Body, getMyEmailAddress()).output; }
-                            if (encrypt && !sign) { mail.Body = GPG4OutlookLibrary.Encrypt(mail.Body, mail.Recipients, true).output; }
-                            if (encrypt && sign) { mail.Body = GPG4OutlookLibrary.SignAndEncrypt(mail.Body, mail.Recipients, true, getMyEmailAddress()).output; }
+                            if (!encrypt && sign) { mail.Body = GPG4OutlookLibrary.Clearsign(mail.Body, getMyEmailAddress(), false).output; }
+                            if (encrypt && !sign) { mail.Body = GPG4OutlookLibrary.Encrypt(mail.Body, mail.Recipients, true, false).output; }
+                            if (encrypt && sign) { mail.Body = GPG4OutlookLibrary.SignAndEncrypt(mail.Body, mail.Recipients, true, getMyEmailAddress(), false).output; }
                         }
                         else
                         {
-                            if (!encrypt && sign) { mail.HTMLBody = GPG4OutlookLibrary.Clearsign(mail.HTMLBody, getMyEmailAddress()).output; }
-                            if (encrypt && !sign) { mail.HTMLBody = GPG4OutlookLibrary.Encrypt(mail.HTMLBody, mail.Recipients, true).output; }
-                            if (encrypt && sign) { mail.HTMLBody = GPG4OutlookLibrary.SignAndEncrypt(mail.HTMLBody, mail.Recipients, true, getMyEmailAddress()).output; }
+                            if (!encrypt && sign) { mail.HTMLBody = GPG4OutlookLibrary.Clearsign(mail.HTMLBody, getMyEmailAddress(), false).output; }
+                            if (encrypt && !sign) { mail.HTMLBody = GPG4OutlookLibrary.Encrypt(mail.HTMLBody, mail.Recipients, true, false).output; }
+                            if (encrypt && sign) { mail.HTMLBody = GPG4OutlookLibrary.SignAndEncrypt(mail.HTMLBody, mail.Recipients, true, getMyEmailAddress(), false).output; }
                         }
                     }
                     catch (System.Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ein Fehler ist augetreten:");
-                        Cancel = true;
+                        mail.Body = Properties.Resources.cancelErrorMailBody;
+                        Cancel = true;                        
+                        MessageBox.Show(ex.Message, "Ein Fehler ist aufgetreten:");                        
                     }
                 }
             }
@@ -95,16 +99,21 @@ namespace OutlookGpg2010
 
         private static void encryptAttachments(MailItem mail)
         {
-            const String PR_ATTACH_DATA_BIN = "http://schemas.microsoft.com/mapi/proptag/0x37010102";
+            Dictionary<String, String> attachmentDictionary = GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments);
 
-            foreach (Attachment attachment in mail.Attachments)
+            foreach (String temporaryAttachment in attachmentDictionary.Keys)
             {
-                Object attachmentData = attachment.PropertyAccessor.GetProperty(PR_ATTACH_DATA_BIN);
-
-                Byte[] data = null;
-
-                attachment.PropertyAccessor.SetProperty(PR_ATTACH_DATA_BIN, data);
+                GPG4OutlookLibrary.Encrypt(temporaryAttachment, mail.Recipients, false, true);
             }
+
+            List<Microsoft.Office.Interop.Outlook.Attachment> attachments = new List<Attachment>();
+
+            foreach (String temporaryAttachment in attachmentDictionary.Keys)
+            {
+                mail.Attachments.Add(temporaryAttachment + ".gpg", OlAttachmentType.olByValue, 1, attachmentDictionary[temporaryAttachment]);
+            }
+
+            GPG4OutlookLibrary.cleanupTemporaryAttachments(attachmentDictionary);
         }
     }
 }

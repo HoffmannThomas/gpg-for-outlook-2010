@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using GPG4OutlookLib;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
+using System.Collections.Generic;
 
 namespace OutlookGpg2010
 {
@@ -38,10 +39,10 @@ namespace OutlookGpg2010
 
                 MailItem mail = (MailItem)inspector.CurrentItem;
                 if (mail.BodyFormat == OlBodyFormat.olFormatPlain) {
-                    information = GPG4OutlookLibrary.Decrypt(mail.Body).information;                    
+                    information = GPG4OutlookLibrary.Verify(mail.Body, false).information;                    
                 }
                 else {
-                    information = GPG4OutlookLibrary.Decrypt(mail.HTMLBody).information;
+                    information = GPG4OutlookLibrary.Verify(mail.HTMLBody, false).information;
                 }
 
                 this.verifyLabel2.Label = information;
@@ -58,17 +59,17 @@ namespace OutlookGpg2010
             {
                 MailItem mail = (MailItem)inspector.CurrentItem;
 
-                //TODO: Decrypt Attachments
+                decryptAttachments(mail);
 
                 if (Properties.userSettings.Default.ShowDecryptPopUp)
                 {
-                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.Body).output, "Decrypted message:"); }
-                    else { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.HTMLBody).output, "Decrypted message:"); }
+                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.Body, false).output, "Decrypted message:"); }
+                    else { MessageBox.Show(GPG4OutlookLibrary.Decrypt(mail.HTMLBody, false).output, "Decrypted message:"); }
                 }
                 else
                 {
-                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { mail.Body = GPG4OutlookLibrary.Decrypt(mail.Body).output; }
-                    else { mail.HTMLBody = GPG4OutlookLibrary.Decrypt(mail.HTMLBody).output; }
+                    if (mail.BodyFormat == OlBodyFormat.olFormatPlain) { mail.Body = GPG4OutlookLibrary.Decrypt(mail.Body, false).output; }
+                    else { mail.HTMLBody = GPG4OutlookLibrary.Decrypt(mail.HTMLBody, false).output; }
                 }
             }
             catch (System.Exception ex)
@@ -84,16 +85,23 @@ namespace OutlookGpg2010
 
         private static void decryptAttachments(MailItem mail)
         {
-            const String PR_ATTACH_DATA_BIN = "http://schemas.microsoft.com/mapi/proptag/0x37010102";
+            Dictionary<String, String> attachmentDictionary = GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments);
 
-            foreach (Attachment attachment in mail.Attachments)
+            foreach (String temporaryAttachment in attachmentDictionary.Keys)
             {
-                Object attachmentData = attachment.PropertyAccessor.GetProperty(PR_ATTACH_DATA_BIN);
-
-                Byte[] data = null;
-
-                attachment.PropertyAccessor.SetProperty(PR_ATTACH_DATA_BIN, data);
+                GPG4OutlookLibrary.Decrypt(temporaryAttachment, true);
             }
+
+            List<Microsoft.Office.Interop.Outlook.Attachment> attachments = new List<Attachment>();
+
+            foreach (String temporaryAttachment in attachmentDictionary.Keys)
+            {
+                String tmp = temporaryAttachment.Replace(".gpg", "");
+
+                mail.Attachments.Add(tmp, OlAttachmentType.olByValue, 1, attachmentDictionary[temporaryAttachment]);
+            }
+
+            GPG4OutlookLibrary.cleanupTemporaryAttachments(attachmentDictionary);
         }
     }
 }

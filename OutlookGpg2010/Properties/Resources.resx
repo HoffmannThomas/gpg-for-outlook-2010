@@ -130,4 +130,7 @@
   <data name="defaultSMPTAddress" xml:space="preserve">
     <value>Default SMTP-Address</value>
   </data>
+  <data name="cancelErrorMailBody" xml:space="preserve">
+    <value>This message should be send encrypted, but the process failed. Please try to identify the problem and resend the message.</value>
+  </data>
 </root>
