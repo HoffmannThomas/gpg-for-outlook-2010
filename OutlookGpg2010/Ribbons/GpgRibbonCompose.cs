@@ -83,17 +83,28 @@ namespace OutlookGpg2010
 
         private static String getMyEmailAddress()
         {
-            Tools.SelectIdentityForm selectKey = new Tools.SelectIdentityForm();
-
-            selectKey.ShowDialog();
-
-            if (!selectKey.selectedMailaddress.Equals(Properties.Resources.defaultSMPTAddress))
+            if (Properties.userSettings.Default.AlwaysUseMailAddress)
             {
-                return selectKey.selectedMailaddress;
+                if (Properties.userSettings.Default.UsedEmailAddress.Equals(Properties.Resources.defaultSMPTAddress)) {
+                    return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+                }else{
+                    return Properties.userSettings.Default.UsedEmailAddress;
+                }
             }
             else
             {
-                return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+                Tools.SelectIdentityForm selectKey = new Tools.SelectIdentityForm();
+
+                selectKey.ShowDialog();
+
+                if (!selectKey.selectedMailaddress.Equals(Properties.Resources.defaultSMPTAddress))
+                {
+                    return selectKey.selectedMailaddress;
+                }
+                else
+                {
+                    return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
+                }
             }
         }
 

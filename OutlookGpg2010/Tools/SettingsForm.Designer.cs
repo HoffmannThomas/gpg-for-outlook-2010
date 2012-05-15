@@ -40,6 +40,7 @@
             this.ShowPopUpBox = new System.Windows.Forms.CheckBox();
             this.keyComboBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.AlwaysUseIdentBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // AlwaysSignBox
@@ -104,7 +105,7 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(95, 223);
+            this.saveButton.Location = new System.Drawing.Point(95, 241);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 6;
@@ -115,7 +116,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(195, 223);
+            this.cancelButton.Location = new System.Drawing.Point(195, 241);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -163,13 +164,24 @@
             this.label5.Text = "Select the default mail address used for signing:\r\n";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
+            // AlwaysUseIdentBox
+            // 
+            this.AlwaysUseIdentBox.AutoSize = true;
+            this.AlwaysUseIdentBox.Location = new System.Drawing.Point(15, 210);
+            this.AlwaysUseIdentBox.Name = "AlwaysUseIdentBox";
+            this.AlwaysUseIdentBox.Size = new System.Drawing.Size(159, 17);
+            this.AlwaysUseIdentBox.TabIndex = 13;
+            this.AlwaysUseIdentBox.Text = "Always use this mail address";
+            this.AlwaysUseIdentBox.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(401, 264);
+            this.ClientSize = new System.Drawing.Size(405, 271);
+            this.Controls.Add(this.AlwaysUseIdentBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.keyComboBox);
             this.Controls.Add(this.ShowPopUpBox);
@@ -205,5 +217,6 @@
         private System.Windows.Forms.CheckBox ShowPopUpBox;
         private System.Windows.Forms.ComboBox keyComboBox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox AlwaysUseIdentBox;
     }
 }

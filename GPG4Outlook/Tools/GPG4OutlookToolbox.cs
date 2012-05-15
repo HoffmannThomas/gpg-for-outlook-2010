@@ -18,7 +18,7 @@ namespace GPG4OutlookLib.Tools
 
         internal static String[] listKeys()
         {
-            MatchCollection matches = Regex.Matches(execute("--list-secret-keys", "", true).output, mailRegexPattern, RegexOptions.Multiline);
+            MatchCollection matches = Regex.Matches(execute("--list-secret-keys", "", false).output, mailRegexPattern, RegexOptions.Multiline);
 
             List<String> keys = new List<String>();
 
@@ -35,6 +35,9 @@ namespace GPG4OutlookLib.Tools
             PleaseWaitForm pleaseWaitForm = new PleaseWaitForm();
             pleaseWaitForm.Show();
 
+
+            if (isFile && commandLine.Contains("--decrypt")) {
+                commandLine = commandLine.Replace("--decrypt", "--output " + input.Replace(".gpg","") + " --decrypt"); }
             if (isFile) { commandLine = commandLine + " " + input; }
 
             gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);

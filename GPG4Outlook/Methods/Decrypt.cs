@@ -1,4 +1,6 @@
-﻿namespace GPG4OutlookLib.Methods
+﻿using System;
+
+namespace GPG4OutlookLib.Methods
 {
     internal class Decrypt : Method
     {

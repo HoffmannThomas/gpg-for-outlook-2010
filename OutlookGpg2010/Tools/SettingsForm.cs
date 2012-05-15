@@ -12,6 +12,7 @@ namespace OutlookGpg2010.Tools
             this.AlwaysEncryptBox.Checked = Properties.userSettings.Default.AlwaysEncrypt;
             this.AlwaysDecryptBox.Checked = Properties.userSettings.Default.AlwaysDecrypt;
             this.ShowPopUpBox.Checked = Properties.userSettings.Default.ShowDecryptPopUp;
+            this.AlwaysUseIdentBox.Checked = Properties.userSettings.Default.AlwaysUseMailAddress;
 
             this.refreshKeyComboBox();
         }
@@ -47,6 +48,7 @@ namespace OutlookGpg2010.Tools
             Properties.userSettings.Default.ShowDecryptPopUp = this.ShowPopUpBox.Checked;
 
             Properties.userSettings.Default.UsedEmailAddress = this.keyComboBox.SelectedItem.ToString();
+            Properties.userSettings.Default.AlwaysUseMailAddress = this.AlwaysUseIdentBox.Checked;
 
             this.Close();
         }

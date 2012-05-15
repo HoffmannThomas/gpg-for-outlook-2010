@@ -96,9 +96,7 @@ namespace OutlookGpg2010
 
             foreach (String temporaryAttachment in attachmentDictionary.Keys)
             {
-                String tmp = temporaryAttachment.Replace(".gpg", "");
-
-                mail.Attachments.Add(tmp, OlAttachmentType.olByValue, 1, attachmentDictionary[temporaryAttachment]);
+                mail.Attachments.Add(temporaryAttachment.Replace(".gpg",""), OlAttachmentType.olByValue, 1, attachmentDictionary[temporaryAttachment]);
             }
 
             GPG4OutlookLibrary.cleanupTemporaryAttachments(attachmentDictionary);
