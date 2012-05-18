@@ -72,12 +72,15 @@ namespace GPG4OutlookLib.Tools
 
             foreach (Attachment attachment in attachments)
             {
-                String tempfileName = Path.GetTempPath() + attachment.FileName.Replace(" ", "_");
+                String tempfileName = getTempPath() + attachment.FileName.Replace(" ", "_");
                 attachment.SaveAsFile(tempfileName);
                 attachmentDictionary.Add(tempfileName, attachment.DisplayName);
             }
 
-            for (int i = 0; i <= attachments.Count; i++) { attachments.Remove(i); }         
+            foreach (Attachment attachment in attachments)
+            {
+                attachment.Delete();
+            }
 
             return attachmentDictionary;
         }
@@ -90,6 +93,13 @@ namespace GPG4OutlookLib.Tools
                 File.Delete(temporaryAttachment + ".gpg");
                 File.Delete(temporaryAttachment + ".asc");
             }
+        }
+
+        private static String getTempPath()
+        {
+            String tempPath = Path.GetTempPath();
+            System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(tempPath);
+            return tempPath;
         }
 
         private static Process createNewGPGProcess(String commandLine)

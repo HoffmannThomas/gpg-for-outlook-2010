@@ -133,4 +133,7 @@
   <data name="cancelErrorMailBody" xml:space="preserve">
     <value>This message should be send encrypted, but the process failed. Please try to identify the problem and resend the message.</value>
   </data>
+  <data name="genericError" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
 </root>

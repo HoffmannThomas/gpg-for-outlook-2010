@@ -36,9 +36,9 @@
             this.pleaseWaitLabel.AutoSize = true;
             this.pleaseWaitLabel.Location = new System.Drawing.Point(43, 36);
             this.pleaseWaitLabel.Name = "pleaseWaitLabel";
-            this.pleaseWaitLabel.Size = new System.Drawing.Size(227, 13);
+            this.pleaseWaitLabel.Size = new System.Drawing.Size(233, 13);
             this.pleaseWaitLabel.TabIndex = 0;
-            this.pleaseWaitLabel.Text = "Please wait and enter the password if promted.";
+            this.pleaseWaitLabel.Text = "Please wait and enter the password if prompted.";
             // 
             // PleaseWaitForm
             // 

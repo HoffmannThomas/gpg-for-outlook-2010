@@ -73,11 +73,20 @@ namespace OutlookGpg2010
                     }
                     catch (System.Exception ex)
                     {
-                        mail.Body = Properties.Resources.cancelErrorMailBody;
-                        Cancel = true;                        
-                        MessageBox.Show(ex.Message, "Ein Fehler ist aufgetreten:");                        
+                        cleanupAfterError(mail);
+                        Cancel = true;
+                        MessageBox.Show(ex.Message, Properties.Resources.genericError);
                     }
                 }
+            }
+        }
+
+        private static void cleanupAfterError(MailItem mail)
+        {
+            mail.Body = Properties.Resources.cancelErrorMailBody;
+            foreach (Attachment attachment in mail.Attachments)
+            {
+                attachment.Delete();
             }
         }
 
@@ -85,9 +94,12 @@ namespace OutlookGpg2010
         {
             if (Properties.userSettings.Default.AlwaysUseMailAddress)
             {
-                if (Properties.userSettings.Default.UsedEmailAddress.Equals(Properties.Resources.defaultSMPTAddress)) {
+                if (Properties.userSettings.Default.UsedEmailAddress.Equals(Properties.Resources.defaultSMPTAddress))
+                {
                     return Globals.ThisAddIn.Application.ActiveExplorer().Session.CurrentUser.Address;
-                }else{
+                }
+                else
+                {
                     return Properties.userSettings.Default.UsedEmailAddress;
                 }
             }

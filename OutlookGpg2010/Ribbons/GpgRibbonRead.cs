@@ -74,7 +74,7 @@ namespace OutlookGpg2010
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ein Fehler ist augetreten:");
+                MessageBox.Show(ex.Message, Properties.Resources.genericError);
             }
         }
 

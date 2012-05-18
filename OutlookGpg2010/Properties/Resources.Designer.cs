@@ -85,6 +85,15 @@ namespace OutlookGpg2010.Properties {
             }
         }
         
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die An error occured ähnelt.
+        /// </summary>
+        internal static string genericError {
+            get {
+                return ResourceManager.GetString("genericError", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap neutral {
             get {
                 object obj = ResourceManager.GetObject("neutral", resourceCulture);
