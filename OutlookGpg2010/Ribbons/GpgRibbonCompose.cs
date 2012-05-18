@@ -48,6 +48,9 @@ namespace OutlookGpg2010
 
         internal static void ItemSend(object Item, bool Cancel)
         {
+            // just in case...
+            Cancel = true;
+
             if (!(!encrypt && !sign))
             {
                 MailItem mail = Item as MailItem;
@@ -73,21 +76,14 @@ namespace OutlookGpg2010
                     }
                     catch (System.Exception ex)
                     {
-                        cleanupAfterError(mail);
-                        Cancel = true;
                         MessageBox.Show(ex.Message, Properties.Resources.genericError);
                     }
                 }
             }
-        }
 
-        private static void cleanupAfterError(MailItem mail)
-        {
-            mail.Body = Properties.Resources.cancelErrorMailBody;
-            foreach (Attachment attachment in mail.Attachments)
-            {
-                attachment.Delete();
-            }
+            // everything seems to be fine
+            Cancel = false;
+
         }
 
         private static String getMyEmailAddress()

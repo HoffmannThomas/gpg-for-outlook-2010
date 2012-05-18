@@ -36,8 +36,10 @@ namespace GPG4OutlookLib.Tools
             pleaseWaitForm.Show();
 
 
-            if (isFile && commandLine.Contains("--decrypt")) {
-                commandLine = commandLine.Replace("--decrypt", "--output " + input.Replace(".gpg","") + " --decrypt"); }
+            if (isFile && commandLine.Contains("--decrypt"))
+            {
+                commandLine = commandLine.Replace("--decrypt", "--output " + input.Replace(".gpg", "") + " --decrypt");
+            }
             if (isFile) { commandLine = commandLine + " " + input; }
 
             gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
@@ -97,8 +99,10 @@ namespace GPG4OutlookLib.Tools
 
         private static String getTempPath()
         {
-            String tempPath = Path.GetTempPath();
+            String tempPath;
+            tempPath = Path.GetTempPath();
             System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(tempPath);
+
             return tempPath;
         }
 
