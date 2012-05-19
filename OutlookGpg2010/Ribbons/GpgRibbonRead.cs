@@ -86,14 +86,26 @@ namespace OutlookGpg2010
 
         private static void decryptAttachments(MailItem mail)
         {
-            foreach (String temporaryAttachment in GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments))
+            List<String> decryptedAttachments = new List<String>();
+
+            foreach (Attachment attachment in mail.Attachments)
             {
-                GPG4OutlookLibrary.Decrypt(temporaryAttachment, true);
-                File.Delete(temporaryAttachment);
-                mail.Attachments.Add(temporaryAttachment.Replace(".gpg", ""), OlAttachmentType.olByValue, 1, Path.GetFileName(temporaryAttachment));
-                File.Delete(temporaryAttachment.Replace(".gpg", ""));
+                String tempFile = Path.GetTempPath() + attachment.DisplayName;
+                File.Delete(tempFile);
+                attachment.SaveAsFile(tempFile);
+
+                File.Delete(tempFile.Replace(".gpg", ""));
+                GPG4OutlookLibrary.Decrypt(tempFile, true);
+                File.Delete(tempFile);
+
+                decryptedAttachments.Add(tempFile);
             }
 
+            foreach (String decryptedAttachment in decryptedAttachments)
+            {
+                mail.Attachments.Add(decryptedAttachment.Replace(".gpg", ""), OlAttachmentType.olByValue, 1, Path.GetFileName(decryptedAttachment));
+                File.Delete(decryptedAttachment.Replace(".gpg", ""));
+            }
         }
     }
 }

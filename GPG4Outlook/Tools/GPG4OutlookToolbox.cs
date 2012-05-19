@@ -67,20 +67,6 @@ namespace GPG4OutlookLib.Tools
             return new MessageContainer(new StreamReader(_outputStream).ReadToEnd(), _errorString);
         }
 
-        internal static List<String> saveAttachmentsTemporary(Attachments attachments)
-        {
-            List<String> attachmentDictionary = new List<String>();
-
-            foreach (Attachment attachment in attachments)
-            {
-                String tempfileName = Path.GetTempPath() + attachment.DisplayName;
-                attachment.SaveAsFile(tempfileName);
-                attachmentDictionary.Add(tempfileName);
-                if (!attachment.DisplayName.Contains(".gpg")) { attachment.Delete(); }
-            }
-            return attachmentDictionary;
-        }
-
         private static Process createNewGPGProcess(String commandLine)
         {
             return Process.Start(gpgProcessInformation(commandLine));

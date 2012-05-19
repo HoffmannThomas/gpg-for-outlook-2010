@@ -37,10 +37,5 @@ namespace GPG4OutlookLib
         {
             return GPG4OutlookToolbox.listKeys();
         }
-
-        public static List<String> saveAttachmentsTemporary(Attachments attachments)
-        {
-            return GPG4OutlookToolbox.saveAttachmentsTemporary(attachments);        
-        }
     }
 }

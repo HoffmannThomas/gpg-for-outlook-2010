@@ -89,10 +89,7 @@ namespace OutlookGpg2010
         private static void cleanupMailAfterError(MailItem mail)
         {
             mail.Body = Properties.Resources.cancelErrorMailBody;
-            foreach (Attachment attachment in mail.Attachments)
-            {
-                attachment.Delete();
-            }
+            removeAllAttachments(mail.Attachments);
         }
 
         private static String getMyEmailAddress()
@@ -127,12 +124,35 @@ namespace OutlookGpg2010
 
         private static void encryptAttachments(MailItem mail)
         {
-            foreach (String temporaryAttachment in GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments))
+            List<String> encryptedAttachments = new List<String>();
+
+            foreach (Attachment attachment in mail.Attachments)
+            {                
+                String tempFile = Path.GetTempPath() + attachment.DisplayName;
+                File.Delete(tempFile);                
+                attachment.SaveAsFile(tempFile);
+
+                File.Delete(tempFile + ".gpg");
+                GPG4OutlookLibrary.Encrypt(tempFile, mail.Recipients, false, true);
+                File.Delete(tempFile);
+
+                encryptedAttachments.Add(tempFile + ".gpg");
+            }
+
+            removeAllAttachments(mail.Attachments);
+
+            foreach (String newAttachment in encryptedAttachments)
             {
-                GPG4OutlookLibrary.Encrypt(temporaryAttachment, mail.Recipients, false, true);
-                File.Delete(temporaryAttachment);
-                mail.Attachments.Add(temporaryAttachment + ".gpg", OlAttachmentType.olByValue, 1, Path.GetFileName(temporaryAttachment));
-                File.Delete(temporaryAttachment + ".gpg");
+                mail.Attachments.Add(newAttachment, OlAttachmentType.olByValue, 1, Path.GetFileName(newAttachment));
+                File.Delete(newAttachment);
+            }
+        }
+
+        private static void removeAllAttachments(Attachments attachments)
+        {
+            while (attachments.Count > 0)
+            {
+                attachments.Remove(1);
             }
         }
     }
