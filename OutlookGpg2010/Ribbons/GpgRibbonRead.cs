@@ -4,6 +4,7 @@ using GPG4OutlookLib;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools.Ribbon;
 using System.Collections.Generic;
+using System.IO;
 
 namespace OutlookGpg2010
 {
@@ -85,21 +86,14 @@ namespace OutlookGpg2010
 
         private static void decryptAttachments(MailItem mail)
         {
-            Dictionary<String, String> attachmentDictionary = GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments);
-
-            foreach (String temporaryAttachment in attachmentDictionary.Keys)
+            foreach (String temporaryAttachment in GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments))
             {
                 GPG4OutlookLibrary.Decrypt(temporaryAttachment, true);
+                File.Delete(temporaryAttachment);
+                mail.Attachments.Add(temporaryAttachment.Replace(".gpg", ""), OlAttachmentType.olByValue, 1, Path.GetFileName(temporaryAttachment));
+                File.Delete(temporaryAttachment.Replace(".gpg", ""));
             }
 
-            List<Microsoft.Office.Interop.Outlook.Attachment> attachments = new List<Attachment>();
-
-            foreach (String temporaryAttachment in attachmentDictionary.Keys)
-            {
-                mail.Attachments.Add(temporaryAttachment.Replace(".gpg",""), OlAttachmentType.olByValue, 1, attachmentDictionary[temporaryAttachment]);
-            }
-
-            GPG4OutlookLibrary.cleanupTemporaryAttachments(attachmentDictionary);
         }
     }
 }

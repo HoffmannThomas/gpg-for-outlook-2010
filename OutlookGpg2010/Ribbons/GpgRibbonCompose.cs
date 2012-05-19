@@ -76,6 +76,7 @@ namespace OutlookGpg2010
                     }
                     catch (System.Exception ex)
                     {
+                        cleanupMailAfterError(mail);
                         MessageBox.Show(ex.Message, Properties.Resources.genericError);
                     }
                 }
@@ -83,7 +84,15 @@ namespace OutlookGpg2010
 
             // everything seems to be fine
             Cancel = false;
+        }
 
+        private static void cleanupMailAfterError(MailItem mail)
+        {
+            mail.Body = Properties.Resources.cancelErrorMailBody;
+            foreach (Attachment attachment in mail.Attachments)
+            {
+                attachment.Delete();
+            }
         }
 
         private static String getMyEmailAddress()
@@ -118,21 +127,13 @@ namespace OutlookGpg2010
 
         private static void encryptAttachments(MailItem mail)
         {
-            Dictionary<String, String> attachmentDictionary = GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments);
-
-            foreach (String temporaryAttachment in attachmentDictionary.Keys)
+            foreach (String temporaryAttachment in GPG4OutlookLibrary.saveAttachmentsTemporary(mail.Attachments))
             {
                 GPG4OutlookLibrary.Encrypt(temporaryAttachment, mail.Recipients, false, true);
+                File.Delete(temporaryAttachment);
+                mail.Attachments.Add(temporaryAttachment + ".gpg", OlAttachmentType.olByValue, 1, Path.GetFileName(temporaryAttachment));
+                File.Delete(temporaryAttachment + ".gpg");
             }
-
-            List<Microsoft.Office.Interop.Outlook.Attachment> attachments = new List<Attachment>();
-
-            foreach (String temporaryAttachment in attachmentDictionary.Keys)
-            {
-                mail.Attachments.Add(temporaryAttachment + ".gpg", OlAttachmentType.olByValue, 1, attachmentDictionary[temporaryAttachment]);
-            }
-
-            GPG4OutlookLibrary.cleanupTemporaryAttachments(attachmentDictionary);
         }
     }
 }

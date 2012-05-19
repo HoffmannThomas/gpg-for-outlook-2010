@@ -35,12 +35,11 @@ namespace GPG4OutlookLib.Tools
             PleaseWaitForm pleaseWaitForm = new PleaseWaitForm();
             pleaseWaitForm.Show();
 
-
             if (isFile && commandLine.Contains("--decrypt"))
             {
-                commandLine = commandLine.Replace("--decrypt", "--output " + input.Replace(".gpg", "") + " --decrypt");
+                commandLine = commandLine.Replace("--decrypt", "--output " + @"""" + input.Replace(".gpg", "") + @"""" + " --decrypt");
             }
-            if (isFile) { commandLine = commandLine + " " + input; }
+            if (isFile) { commandLine = commandLine + " " + @"""" + input + @""""; }
 
             gpgProcess = GPG4OutlookToolbox.createNewGPGProcess(commandLine);
 
@@ -68,42 +67,18 @@ namespace GPG4OutlookLib.Tools
             return new MessageContainer(new StreamReader(_outputStream).ReadToEnd(), _errorString);
         }
 
-        internal static Dictionary<String, String> saveAttachmentsTemporary(Attachments attachments)
+        internal static List<String> saveAttachmentsTemporary(Attachments attachments)
         {
-            Dictionary<String, String> attachmentDictionary = new Dictionary<String, String>();
+            List<String> attachmentDictionary = new List<String>();
 
             foreach (Attachment attachment in attachments)
             {
-                String tempfileName = getTempPath() + attachment.FileName.Replace(" ", "_");
+                String tempfileName = Path.GetTempPath() + attachment.DisplayName;
                 attachment.SaveAsFile(tempfileName);
-                attachmentDictionary.Add(tempfileName, attachment.DisplayName);
+                attachmentDictionary.Add(tempfileName);
+                if (!attachment.DisplayName.Contains(".gpg")) { attachment.Delete(); }
             }
-
-            foreach (Attachment attachment in attachments)
-            {
-                attachment.Delete();
-            }
-
             return attachmentDictionary;
-        }
-
-        internal static void cleanupTemporaryAttachments(Dictionary<String, String> attachmentDictionary)
-        {
-            foreach (String temporaryAttachment in attachmentDictionary.Keys)
-            {
-                File.Delete(temporaryAttachment);
-                File.Delete(temporaryAttachment + ".gpg");
-                File.Delete(temporaryAttachment + ".asc");
-            }
-        }
-
-        private static String getTempPath()
-        {
-            String tempPath;
-            tempPath = Path.GetTempPath();
-            System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(tempPath);
-
-            return tempPath;
         }
 
         private static Process createNewGPGProcess(String commandLine)

@@ -38,14 +38,9 @@ namespace GPG4OutlookLib
             return GPG4OutlookToolbox.listKeys();
         }
 
-        public static Dictionary<String, String> saveAttachmentsTemporary(Attachments attachments)
+        public static List<String> saveAttachmentsTemporary(Attachments attachments)
         {
             return GPG4OutlookToolbox.saveAttachmentsTemporary(attachments);        
-        }
-
-        public static void cleanupTemporaryAttachments(Dictionary<String, String> attachmentDictionary)
-        {
-            GPG4OutlookToolbox.cleanupTemporaryAttachments(attachmentDictionary);
         }
     }
 }
